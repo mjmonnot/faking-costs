@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What applicant faking costs a hiring funnel</title>
-<meta name="description" content="Interactive companion to a two-study manuscript: a Monte Carlo faking model fit to meta-analytic applicant estimates. Set your own prevalence, selection ratio, and salary to see hires changed, performance loss, and illustrative dollar costs.">
+<title>Three in ten applicants fake the personality test &mdash; and it's the weaker ones</title>
+<meta name="description" content="Roughly 30% of genuine applicants inflate their personality scores, and lower-ability applicants inflate most. Interactive companion to a two-study manuscript: price what that costs your hiring funnel in changed hires, lost performance, and dollars.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,15 +12,17 @@
 
 <header class="masthead">
   <p class="kicker">Personnel selection &middot; Research companion</p>
-  <h1>What applicant faking costs a hiring funnel</h1>
-  <p class="dek">A Monte Carlo model whose parameters are solved to reproduce published
-  meta-analytic applicant evidence &mdash; not assumed. Companion to a two-study
-  manuscript: a stakes-moderated meta-analysis of cognitive ability&ndash;personality
-  correlations, and simulations of trait-driven faking.</p>
+  <h1>Three in ten applicants fake the personality test. It&rsquo;s not the ones you&rsquo;d guess.</h1>
+  <p class="dek">Published within-person estimates put faking at roughly 30% of genuine
+  applicants &mdash; up to one in two &mdash; and the applicants inflating their scores
+  the most are the <em>lower-ability</em> ones. Under top-down selection they gain seats
+  at the organization&rsquo;s expense. This page lets you price that. The model behind it
+  is a Monte Carlo simulation whose parameters are solved to reproduce published
+  meta-analytic applicant evidence &mdash; not assumed.</p>
 </header>
 
 <section aria-labelledby="s1">
-  <p class="section-label" id="s1">1 &middot; The tell-tale flip</p>
+  <p class="section-label" id="s1">1 &middot; Who fakes: the compensatory pattern</p>
   <figure class="flip-figure">
     <svg viewBox="0 0 720 150" role="img" aria-label="Number line showing the Conscientiousness by cognitive ability correlation at plus .03 among employees in research settings and minus .07 among genuine applicants.">
       <line x1="40" y1="100" x2="680" y2="100" stroke="#5a6572" stroke-width="1"/>
@@ -40,13 +42,16 @@
       <text x="556" y="42" font-size="14" font-weight="700" fill="#2e6f9e" text-anchor="middle">Employees, research setting</text>
       <text x="220" y="42" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Genuine applicants, real stakes</text>
     </svg>
-    <figcaption>The Conscientiousness &times; cognitive-ability correlation reverses sign
-    when the test decides who gets hired: <em>r&#773;</em> = +.03 among incumbents
-    (<em>k</em> = 71) vs. &minus;.07 among applicants, across meta-analytic databases of
-    130,000&ndash;188,000 test-takers. The other Big Five relations do not shift.
-    Among genuine applicants, cognitive ability correlates &minus;.19 with score
-    inflation &mdash; lower-scoring applicants polish more, a compensatory pattern,
-    and it is the only faking pattern that reproduces the meta-analytic evidence.</figcaption>
+    <figcaption>Among genuine applicants, cognitive ability correlates &minus;.19 with
+    score inflation: the lower the real score, the harder the polish. It is not the
+    capable candidates gaming the test &mdash; it is disproportionately the weaker ones
+    compensating, and succeeding. The fingerprint this leaves in the aggregate data is
+    shown above: the Conscientiousness &times; cognitive-ability correlation reverses
+    sign when the test decides who gets hired, from <em>r&#773;</em> = +.03 among
+    employees tested for research to &minus;.07 among applicants, across meta-analytic
+    databases of 130,000&ndash;188,000 test-takers. The other Big Five relations do not
+    shift. This compensatory pattern is the only faking pattern that reproduces the
+    meta-analytic evidence.</figcaption>
   </figure>
 </section>
 
@@ -70,11 +75,12 @@
 
       <div class="slider-row">
         <label for="prev">Applicants who fake</label>
-        <input type="range" id="prev" min="20" max="50" step="5" value="40">
-        <output id="prev-out">40%</output>
+        <input type="range" id="prev" min="20" max="50" step="5" value="30">
+        <output id="prev-out">30%</output>
       </div>
-      <p class="control-note">Within-person estimates put it at 30&ndash;50%
-      (Griffith et&nbsp;al., 2007; Donovan et&nbsp;al., 2014).</p>
+      <p class="control-note">The Griffith &amp; Converse (2011) synthesis concludes
+      30% &plusmn; 10%; within-person estimates run 30&ndash;50% (Griffith et&nbsp;al.,
+      2007; Donovan et&nbsp;al., 2014). The manuscript's main simulations use 40%.</p>
 
       <div class="slider-row">
         <label for="sr">Selection ratio (share of applicants hired)</label>
