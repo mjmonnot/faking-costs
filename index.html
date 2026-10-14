@@ -10,6 +10,15 @@
 <body>
 <main>
 
+<nav class="site-nav" aria-label="Site">
+  <ul>
+    <li><a href="./" aria-current="page">Overview &amp; calculator</a></li>
+    <li><a href="evidence.html">The evidence</a></li>
+    <li><a href="playbook.html">Playbook</a></li>
+    <li><a href="references.html">Key references</a></li>
+  </ul>
+</nav>
+
 <header class="masthead">
   <p class="kicker">Personnel selection &middot; Research companion</p>
   <h1>Three in ten applicants fake the personality test. It&rsquo;s not the ones you&rsquo;d guess.</h1>
@@ -23,6 +32,17 @@
 
 <section aria-labelledby="s1">
   <p class="section-label" id="s1">1 &middot; Who fakes: the compensatory pattern</p>
+  <figure class="paper-figure">
+    <img src="assets/who-fakes-scatter.png" width="1748" height="1026"
+         alt="Scatter plot of simulated applicants: inflation of personality scores on the vertical axis against real cognitive ability on the horizontal axis. Honest responders sit at zero inflation. Fakers form a downward-sloping cloud: lower-ability applicants inflate the most, higher-ability applicants inflate far less.">
+    <figcaption><strong>Each dot is an applicant.</strong> Honest responders (gray)
+    add nothing to their scores. Fakers (red) inflate &mdash; and the lower their real
+    cognitive ability, the more they add. Simulated pool from the manuscript&rsquo;s
+    mechanism model, calibrated so it reproduces the published applicant evidence;
+    the pattern matches the field finding that ability correlates &minus;.19 with
+    measured score inflation among genuine applicants.</figcaption>
+  </figure>
+
   <figure class="flip-figure">
     <svg viewBox="0 0 720 150" role="img" aria-label="Number line showing the Conscientiousness by cognitive ability correlation at plus .03 among employees in research settings and minus .07 among genuine applicants.">
       <line x1="40" y1="100" x2="680" y2="100" stroke="#5a6572" stroke-width="1"/>
@@ -42,16 +62,13 @@
       <text x="556" y="42" font-size="14" font-weight="700" fill="#2e6f9e" text-anchor="middle">Employees, research setting</text>
       <text x="220" y="42" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Genuine applicants, real stakes</text>
     </svg>
-    <figcaption>Among genuine applicants, cognitive ability correlates &minus;.19 with
-    score inflation: the lower the real score, the harder the polish. It is not the
-    capable candidates gaming the test &mdash; it is disproportionately the weaker ones
-    compensating, and succeeding. The fingerprint this leaves in the aggregate data is
-    shown above: the Conscientiousness &times; cognitive-ability correlation reverses
-    sign when the test decides who gets hired, from <em>r&#773;</em> = +.03 among
-    employees tested for research to &minus;.07 among applicants, across meta-analytic
-    databases of 130,000&ndash;188,000 test-takers. The other Big Five relations do not
-    shift. This compensatory pattern is the only faking pattern that reproduces the
-    meta-analytic evidence.</figcaption>
+    <figcaption>The fingerprint this pattern leaves in the aggregate data: the
+    Conscientiousness &times; cognitive-ability correlation reverses sign when the
+    test decides who gets hired, from <em>r&#773;</em> = +.03 among employees tested
+    for research to &minus;.07 among genuine applicants, across meta-analytic databases
+    of 130,000&ndash;188,000 test-takers. The other Big Five relations do not shift.
+    This compensatory pattern is the only faking pattern that reproduces the
+    meta-analytic evidence &mdash; <a href="evidence.html">see the full figures</a>.</figcaption>
   </figure>
 </section>
 
@@ -150,6 +167,9 @@
     essentially undisturbed by faking in these simulations, while the composition of
     who gets hired degrades.</li>
   </ul>
+  <p class="section-intro" style="margin-top:20px">For concrete steps &mdash; what to do
+  this quarter and how to structure a selection system around this evidence &mdash;
+  see the <a href="playbook.html">playbook</a>.</p>
 </section>
 
 <details class="model-notes">

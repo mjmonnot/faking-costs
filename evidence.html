@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The evidence &mdash; applicant faking and the ability&ndash;personality correlation</title>
+<meta name="description" content="The figures behind the faking-cost calculator: stakes moderation across the Big Five, the study-level forest plot, and the end-to-end mechanism explainer.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+<nav class="site-nav" aria-label="Site">
+  <ul>
+    <li><a href="./">Overview &amp; calculator</a></li>
+    <li><a href="evidence.html" aria-current="page">The evidence</a></li>
+    <li><a href="playbook.html">Playbook</a></li>
+    <li><a href="references.html">Key references</a></li>
+  </ul>
+</nav>
+
+<header class="masthead">
+  <p class="kicker">Personnel selection &middot; Research companion</p>
+  <h1>The evidence</h1>
+  <p class="dek">The figures from the manuscript, with plain-language reading guides.
+  Study 1 is a stakes-moderated meta-analysis built on the public Stanek &amp; Ones
+  (2023) database; Study 2 is the simulation behind the
+  <a href="./">calculator</a>.</p>
+</header>
+
+<section aria-labelledby="e1">
+  <p class="section-label" id="e1">1 &middot; Only the faked trait moves</p>
+  <figure class="paper-figure">
+    <img src="assets/stakes-moderation-forest.png" width="1024" height="768"
+         alt="Forest plot of meta-analytic correlations between each Big Five trait and general mental ability, split by sample type: applicants, incumbents, students, community, and military. For Conscientiousness the applicant estimate is negative while the incumbent estimate is positive; for the other traits applicant estimates resemble the other sample types.">
+    <figcaption><strong>How to read it:</strong> each row is a meta-analytic estimate of
+    the correlation between a Big Five trait and cognitive ability for one kind of
+    sample; horizontal bars are 95% confidence intervals. Applicants (red) are people
+    tested with a job on the line. For four of the five traits, applicants look like
+    everyone else. For Conscientiousness &mdash; the trait hiring systems weight most,
+    and the one most worth faking &mdash; the applicant estimate sits on the other side
+    of zero from the incumbent estimate. That selective distortion is what a
+    compensatory faking account predicts.</figcaption>
+  </figure>
+</section>
+
+<section aria-labelledby="e2">
+  <p class="section-label" id="e2">2 &middot; The same contrast, study by study</p>
+  <figure class="paper-figure">
+    <img src="assets/conscientiousness-forest-us-nonus.png" width="1024" height="563"
+         alt="Study-level forest plot of observed Conscientiousness by GMA correlations in applicant samples, split into ten US samples with an N-weighted mean of +.01 and ten non-US samples with an N-weighted mean of minus .27.">
+    <figcaption><strong>How to read it:</strong> every individual applicant sample in the
+    database, one row per study, with its sample size and confidence interval. The
+    negative applicant correlation is not one bad study &mdash; and it is not uniform
+    either. US applicant samples average +.01; non-US samples (Australia/New Zealand,
+    Canada, Europe) average &minus;.27. The paper treats that regional split as a
+    finding to explain, not a nuisance: region is confounded with instrument family
+    and national selection practices, so the simulations are run separately per
+    context &mdash; which is why the calculator asks you to pick one.</figcaption>
+  </figure>
+</section>
+
+<section aria-labelledby="e3">
+  <p class="section-label" id="e3">3 &middot; The mechanism, end to end</p>
+  <figure class="paper-figure">
+    <img src="assets/mechanism-explainer.png" width="1024" height="346"
+         alt="Three-panel mechanism explainer. Panel A: scatter of Conscientiousness inflation against general mental ability for fakers, slope negative. Panel B: scatter of composite scores as scored against composite scores under honest responding, with faked-in and displaced applicants marked; 31 percent of hires change. Panel C: bar chart of mean true job performance for hires under honest scoring, hires as scored, displaced applicants, and faked-in applicants, with annual dollar values.">
+    <figcaption><strong>How to read it, left to right:</strong> (A) fakers add more
+    inflation the lower their ability &mdash; the same pattern as the scatter on the
+    overview page, here in the pool calibrated to <em>r</em> = &minus;.27. (B) What
+    that does to the ranking: every red dot above the hiring line is an applicant who
+    got the job only because of faking; every gray dot pushed below it is the honest
+    applicant they displaced. In this pool, 31% of hires change. (C) The bill: the
+    applicants faked into seats truly perform 0.19 <em>SD</em> on the job against
+    0.51 <em>SD</em> for the people they displaced &mdash; roughly $9,100 per swapped
+    hire per year under the standard utility convention (performance <em>SD</em> in
+    dollars = 40% of salary).</figcaption>
+  </figure>
+</section>
+
+<footer>
+  <p>Monnot, M. J. (2026). <em>Compensatory faking and the relationship between
+  cognitive ability and personality in personnel selection: Meta-analytic evidence
+  and trait-driven simulations</em> [Manuscript in preparation]. Preprint link to
+  follow.</p>
+  <p><a href="https://mjmonnot.github.io/">mjmonnot.github.io</a> &middot;
+  Contact: matt@vocentive.com</p>
+</footer>
+
+</main>
+</body>
+</html>
