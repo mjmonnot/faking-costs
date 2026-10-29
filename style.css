@@ -328,13 +328,23 @@ footer a { color: var(--blue); }
 @media (prefers-reduced-motion: reduce) {
   .forest-svg .forest-row { transition: none !important; }
 }
-/* Narrow forest: labels above CI rows; no min-width / no H-scroll */
-@media (max-width: 600px) {
+/* Narrow forest: labels above CI rows; no min-width / no H-scroll.
+   Swap until desktop SVG scale keeps text ≥12 CSS px (~820px viewport).
+   Cap mobile SVG so mid-widths stay ≤18 CSS px (462px: 14×462/360≈17.97). */
+@media (max-width: 819px) {
   .forest-scroll {
     overflow-x: hidden;
   }
   .forest-svg-desktop { display: none; }
-  .forest-svg-mobile { display: block; width: 100%; height: auto; min-width: 0; }
+  .forest-svg-mobile {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    /* 480px → 14×480/360=18.67 CSS px (over 18 ceiling). 462 keeps max ≤18. */
+    max-width: 462px;
+    margin-inline: auto;
+  }
 }
 
 a:focus-visible, button:focus-visible {
