@@ -181,3 +181,39 @@ footer {
   color: var(--gray);
 }
 footer a { color: var(--blue); }
+
+/* --- ranked meta table --- */
+.rank-table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.rank-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid var(--rule);
+}
+.rank-table th, .rank-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.rank-table th {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 700;
+  background: #f3eee6;
+}
+.rank-table tr:last-child td { border-bottom: none; }
+.rank-table td.num { text-align: right; }
+.rank-table tr.highlight td { color: var(--red); font-weight: 700; }
+.alteryx-credit {
+  font-size: 15px;
+  color: var(--ink);
+  max-width: 46em;
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 3px solid var(--gold);
+}
