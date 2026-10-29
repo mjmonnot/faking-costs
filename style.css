@@ -360,3 +360,148 @@ a:focus-visible, button:focus-visible {
 }
 
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+/* Staged §5 Alteryx showcase (review only; not on live main yet) */
+/* Desktop: fit paper column (~812px); no min-width overflow. Headers may wrap. */
+.alteryx-match-table {
+  min-width: 0;
+  width: 100%;
+}
+.alteryx-match-table td:nth-child(2) {
+  white-space: nowrap; /* Style Cop F8: Low stakes (incumbents) one line at desktop */
+}
+.alteryx-match-table th {
+  white-space: normal; /* Picasso r2: allow numeric header wrap so Match stays visible */
+  text-transform: none; /* F6: keep ρ readable (not Ρ) */
+  letter-spacing: 0.04em;
+  hyphens: manual;
+}
+.alteryx-match-table th em {
+  font-style: italic;
+  text-transform: none;
+}
+.alteryx-match-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 0 10px;
+  background: transparent;
+  border: 0;
+}
+.alteryx-match-table tbody tr { cursor: default; }
+.alteryx-match-table .match-cell {
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* Picasso r1 fixes 1–3 (scoped to §5) */
+#section-alteryx-showcase .rank-table-wrap {
+  overflow-x: visible; /* no inner H-scroll; cards or fitted table */
+  background: none; /* drop edge fades when not scrolling */
+}
+#section-alteryx-showcase .rank-table-wrap::after {
+  display: none; /* no swipe cue — nothing to swipe */
+}
+#section-alteryx-showcase .rank-table-wrap:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+#section-alteryx-showcase .workflow-zoom {
+  display: block;
+  line-height: 0;
+}
+#section-alteryx-showcase .workflow-zoom img {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+#section-alteryx-showcase .workflow-zoom:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+#section-alteryx-showcase .download-row a,
+#section-alteryx-showcase .source-note a {
+  display: inline-block;
+  padding: 8px 4px; /* ≥24×24 hit box */
+  min-height: 24px;
+  box-sizing: border-box;
+}
+
+/* Picasso r2: stacked cards at ≤819px — semantic table kept; thead clipped for SR */
+@media (max-width: 819px) {
+  #section-alteryx-showcase .alteryx-match-table {
+    min-width: 0;
+    border: 0;
+    background: transparent;
+  }
+  #section-alteryx-showcase .alteryx-match-table thead {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  #section-alteryx-showcase .alteryx-match-table tbody {
+    display: block;
+  }
+  #section-alteryx-showcase .alteryx-match-table tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule);
+    background: #fff;
+    margin: 0 0 12px;
+    padding: 0;
+  }
+  #section-alteryx-showcase .alteryx-match-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    text-align: left !important;
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 12px;
+    white-space: normal;
+  }
+  #section-alteryx-showcase .alteryx-match-table td:last-child {
+    border-bottom: none;
+  }
+  #section-alteryx-showcase .alteryx-match-table td::before {
+    content: attr(data-label);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--gray);
+    flex: 0 1 46%;
+    max-width: 12em;
+  }
+  /* Stakes group = card title (first visually) */
+  #section-alteryx-showcase .alteryx-match-table td:nth-child(2) {
+    order: -1;
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    background: #f3eee6;
+    white-space: normal;
+    padding: 12px 14px;
+  }
+  #section-alteryx-showcase .alteryx-match-table td:nth-child(2)::before {
+    content: none;
+  }
+  #section-alteryx-showcase .alteryx-match-table .match-cell {
+    white-space: nowrap;
+  }
+  #section-alteryx-showcase .alteryx-match-table caption {
+    display: block;
+    width: 100%;
+    white-space: normal;
+    padding: 0 0 12px;
+  }
+}
