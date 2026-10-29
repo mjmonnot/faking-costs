@@ -79,7 +79,8 @@
 </section>
 
 
-<section aria-labelledby="e4">
+
+<section aria-labelledby="e4" id="section-stakes-ranking">
   <p class="section-label" id="e4">4 &middot; Cross-trait stakes ranking (descriptive aggregation)</p>
   <p class="section-intro">The paper&rsquo;s primary meta-analytic estimates are
   <em>per trait</em> (Table 1 and Supplemental Table S2): each Big Five factor keeps
@@ -87,78 +88,164 @@
   <strong>additional descriptive view</strong> &mdash; it pools the five trait-level
   estimates within each stakes group with inverse-variance weights
   <span style="font-variant-numeric:tabular-nums">w = N / (1 &minus; r&sup2;)&sup2;</span>
-  and ranks the groups. It does not replace the trait-specific estimates used in the
+  and ranks the groups. Each row aggregates <em>k</em> = 5 trait-level estimates.
+  It does not replace the trait-specific estimates used in the
   simulations and calculator.</p>
-  <figure class="paper-figure">
-    <img src="assets/stakes-group-weighted-mean-forest.png" width="1680" height="832"
-         alt="Forest plot of inverse-variance-weighted mean Big Five by GMA correlations for six stakes groups. Low-stakes community ranks highest near plus .015; high-stakes applicants rank lowest near minus .017. Horizontal bars are 95 percent confidence intervals.">
+  <figure class="paper-figure forest-figure">
+    <div class="forest-scroll" id="forest-scroll">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-labelledby="forest-title forest-desc" class="forest-svg" width="100%" height="auto" focusable="false">
+    <title id="forest-title">Cross-trait weighted mean r by assessment stakes</title>
+    <desc id="forest-desc">Forest plot of inverse-variance-weighted mean Big Five by GMA correlations for six stakes groups. Horizontal bars are 95 percent confidence intervals. Low-stakes community ranks highest; high-stakes applicants rank lowest. Circles mark low-stakes, squares military, diamonds high-stakes.</desc>
+    <rect width="720" height="340" fill="#faf7f2"/>
+    <rect x="210" y="36" width="420" height="256" fill="#ffffff" stroke="#e3dccf"/>
+    <text x="210" y="22" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1f2a36">Cross-trait weighted mean r by assessment stakes</text>
+    <line x1="450.00" y1="36" x2="450.00" y2="292" stroke="#cfc6b8" stroke-width="1.2"/>
+    <line x1="270.00" y1="292" x2="270.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="270.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">-0.03</text>
+    <line x1="330.00" y1="292" x2="330.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="330.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">-0.02</text>
+    <line x1="390.00" y1="292" x2="390.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="390.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">-0.01</text>
+    <line x1="450.00" y1="292" x2="450.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="450.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.00</text>
+    <line x1="510.00" y1="292" x2="510.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="510.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.01</text>
+    <line x1="570.00" y1="292" x2="570.00" y2="297" stroke="#5a6572" stroke-width="1"/>
+    <text x="570.00" y="312" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.02</text>
+    <text x="420.0" y="332" text-anchor="middle" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Inverse-variance-weighted mean observed r (Big Five × GMA)</text>
+    <g class="forest-row" data-group="low-stakes-community" tabindex="-1"><rect class="row-hit" x="0" y="36.00" width="720" height="42.67" fill="transparent"/><text x="200" y="61.33" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Low stakes (community)</text><line x1="521.67" y1="57.33" x2="563.72" y2="57.33" stroke="#2e6f9e" stroke-width="2.4" stroke-linecap="round"/><line x1="521.67" y1="52.33" x2="521.67" y2="62.33" stroke="#2e6f9e" stroke-width="2.4"/><line x1="563.72" y1="52.33" x2="563.72" y2="62.33" stroke="#2e6f9e" stroke-width="2.4"/><circle cx="542.69" cy="57.33" r="6.5" fill="#2e6f9e" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="61.33" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.015 · k=5</text></g>
+    <g class="forest-row" data-group="low-stakes-all" tabindex="-1"><rect class="row-hit" x="0" y="78.67" width="720" height="42.67" fill="transparent"/><text x="200" y="104.00" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Low stakes (all)</text><line x1="508.72" y1="100.00" x2="535.17" y2="100.00" stroke="#2e6f9e" stroke-width="2.4" stroke-linecap="round"/><line x1="508.72" y1="95.00" x2="508.72" y2="105.00" stroke="#2e6f9e" stroke-width="2.4"/><line x1="535.17" y1="95.00" x2="535.17" y2="105.00" stroke="#2e6f9e" stroke-width="2.4"/><circle cx="521.94" cy="100.00" r="6.5" fill="#2e6f9e" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="104.00" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.012 · k=5</text></g>
+    <g class="forest-row" data-group="low-stakes-students" tabindex="-1"><rect class="row-hit" x="0" y="121.33" width="720" height="42.67" fill="transparent"/><text x="200" y="146.67" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Low stakes (students)</text><line x1="497.09" y1="142.67" x2="534.57" y2="142.67" stroke="#2e6f9e" stroke-width="2.4" stroke-linecap="round"/><line x1="497.09" y1="137.67" x2="497.09" y2="147.67" stroke="#2e6f9e" stroke-width="2.4"/><line x1="534.57" y1="137.67" x2="534.57" y2="147.67" stroke="#2e6f9e" stroke-width="2.4"/><circle cx="515.83" cy="142.67" r="6.5" fill="#2e6f9e" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="146.67" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.011 · k=5</text></g>
+    <g class="forest-row" data-group="low-stakes-incumbents" tabindex="-1"><rect class="row-hit" x="0" y="164.00" width="720" height="42.67" fill="transparent"/><text x="200" y="189.33" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Low stakes (incumbents)</text><line x1="452.02" y1="185.33" x2="532.92" y2="185.33" stroke="#2e6f9e" stroke-width="2.4" stroke-linecap="round"/><line x1="452.02" y1="180.33" x2="452.02" y2="190.33" stroke="#2e6f9e" stroke-width="2.4"/><line x1="532.92" y1="180.33" x2="532.92" y2="190.33" stroke="#2e6f9e" stroke-width="2.4"/><circle cx="492.47" cy="185.33" r="6.5" fill="#2e6f9e" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="189.33" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">+0.007 · k=5</text></g>
+    <g class="forest-row" data-group="military-mixed-stakes" tabindex="-1"><rect class="row-hit" x="0" y="206.67" width="720" height="42.67" fill="transparent"/><text x="200" y="232.00" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">Military (mixed stakes)</text><line x1="332.86" y1="228.00" x2="406.87" y2="228.00" stroke="#b98a2f" stroke-width="2.4" stroke-linecap="round"/><line x1="332.86" y1="223.00" x2="332.86" y2="233.00" stroke="#b98a2f" stroke-width="2.4"/><line x1="406.87" y1="223.00" x2="406.87" y2="233.00" stroke="#b98a2f" stroke-width="2.4"/><rect x="363.87" y="222.00" width="12" height="12" fill="#b98a2f" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="232.00" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">-0.013 · k=5</text></g>
+    <g class="forest-row" data-group="high-stakes-applicants" tabindex="-1"><rect class="row-hit" x="0" y="249.33" width="720" height="42.67" fill="transparent"/><text x="200" y="274.67" text-anchor="end" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="#1f2a36">High stakes (applicants)</text><line x1="309.99" y1="270.67" x2="388.10" y2="270.67" stroke="#c0392b" stroke-width="3.0" stroke-linecap="round"/><line x1="309.99" y1="265.67" x2="309.99" y2="275.67" stroke="#c0392b" stroke-width="3.0"/><line x1="388.10" y1="265.67" x2="388.10" y2="275.67" stroke="#c0392b" stroke-width="3.0"/><polygon points="349.04,263.67 356.04,270.67 349.04,277.67 342.04,270.67" fill="#c0392b" stroke="#fff" stroke-width="1.2"/><text class="row-annot" x="618.00" y="274.67" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="#5a6572">-0.017 · k=5</text></g>
+    <g class="legend" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#5a6572"><circle cx="222" cy="44" r="5" fill="#2e6f9e"/><text x="232" y="47">Low-stakes</text><rect x="310" y="39" width="10" height="10" fill="#b98a2f"/><text x="326" y="47">Military</text><polygon points="395,38 402,44 395,50 388,44" fill="#c0392b"/><text x="408" y="47">High-stakes</text></g>
+    </svg>
+    </div>
     <figcaption><strong>How to read it:</strong> each row pools the five Big Five
     trait-level meta-estimates for that stakes group. Points are inverse-variance-weighted
     mean observed <em>r</em>; horizontal bars are 95% confidence intervals computed as
     wmean &plusmn; 1.96 / &radic;&Sigma;w, where
     <span style="font-variant-numeric:tabular-nums">w = N / (1 &minus; r&sup2;)&sup2;</span>
-    is the inverse asymptotic variance of a correlation. High-stakes applicants sit at
-    the bottom of the ranking &mdash; the same stakes pattern the per-trait analysis
-    highlights for Conscientiousness, now visible as a cross-trait summary.</figcaption>
+    is the inverse asymptotic variance of a correlation. Marker shape encodes stakes
+    independently of color: circles = low-stakes, squares = military, diamonds = high-stakes
+    applicants. Hover or focus a table row to highlight the matching forest row.
+    High-stakes applicants sit at the bottom of the ranking &mdash; the same stakes pattern the
+    per-trait analysis highlights for Conscientiousness, now visible as a cross-trait summary.</figcaption>
   </figure>
+  <p class="table-sort-note">Table columns are sortable (click or press Enter on a header).
+  Forest stays in manuscript rank order (rank 1 at top); highlighting stays synced by group.</p>
   <div class="rank-table-wrap">
-    <table class="rank-table">
+    <table class="rank-table" id="stakes-rank-table">
       <thead>
         <tr>
-          <th scope="col">Rank</th>
+          <th scope="col" class="shape-cell" aria-hidden="true"><span class="visually-hidden">Shape</span></th>
+          <th scope="col" class="sortable num" data-sort="rank" aria-sort="ascending" tabindex="0">Rank <span class="sort-ind" aria-hidden="true">▲</span></th>
           <th scope="col">Stakes group</th>
-          <th scope="col" class="num">Weighted mean r</th>
-          <th scope="col" class="num">Weighted mean &rho;</th>
+          <th scope="col" class="sortable num" data-sort="k" aria-sort="none" tabindex="0">k <span class="sort-ind" aria-hidden="true"></span></th>
+          <th scope="col" class="sortable num" data-sort="r" aria-sort="none" tabindex="0">Weighted mean r <span class="sort-ind" aria-hidden="true"></span></th>
+          <th scope="col" class="sortable num" data-sort="rho" aria-sort="none" tabindex="0">Weighted mean &rho; <span class="sort-ind" aria-hidden="true"></span></th>
           <th scope="col" class="num">95% CI (r)</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Low stakes (community)</td>
-          <td class="num">+.015</td>
-          <td class="num">+.019</td>
-          <td class="num">[.012, .019]</td>
+        <tr data-group="low-stakes-community" tabindex="0" role="row"
+            data-r="0.015448590323396828" data-rho="0.018523379972595216"
+            data-ci-lo="0.011944667985980387" data-ci-hi="0.01895251266081327"
+            data-rank="1" data-k="5"
+            data-se="0.0017877154782736946" data-sum-w="312898.29691927356"
+            aria-label="Low stakes (community), rank 1">
+          <td class="shape-cell" aria-hidden="true">●</td>
+          <td data-col="rank" class="num">1</td>
+          <td data-col="group">Low stakes (community)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">+0.015</td>
+          <td data-col="rho" class="num">+0.019</td>
+          <td data-col="ci" class="num">[+0.012, +0.019]</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Low stakes (all)</td>
-          <td class="num">+.012</td>
-          <td class="num">+.015</td>
-          <td class="num">[.010, .014]</td>
+        <tr data-group="low-stakes-all" tabindex="0" role="row"
+            data-r="0.011990740579676059" data-rho="0.014542126453908505"
+            data-ci-lo="0.009786244900262359" data-ci-hi="0.014195236259089758"
+            data-rank="2" data-k="5"
+            data-se="0.0011247426935784182" data-sum-w="790485.0098729003"
+            aria-label="Low stakes (all), rank 2">
+          <td class="shape-cell" aria-hidden="true">●</td>
+          <td data-col="rank" class="num">2</td>
+          <td data-col="group">Low stakes (all)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">+0.012</td>
+          <td data-col="rho" class="num">+0.015</td>
+          <td data-col="ci" class="num">[+0.010, +0.014]</td>
         </tr>
-        <tr>
-          <td>3</td>
-          <td>Low stakes (students)</td>
-          <td class="num">+.011</td>
-          <td class="num">+.013</td>
-          <td class="num">[.008, .014]</td>
+        <tr data-group="low-stakes-students" tabindex="0" role="row"
+            data-r="0.010970871541863993" data-rho="0.013154050661914997"
+            data-ci-lo="0.007847501286579416" data-ci-hi="0.01409424179714857"
+            data-rank="3" data-k="5"
+            data-se="0.0015935562526962128" data-sum-w="393790.4707771266"
+            aria-label="Low stakes (students), rank 3">
+          <td class="shape-cell" aria-hidden="true">●</td>
+          <td data-col="rank" class="num">3</td>
+          <td data-col="group">Low stakes (students)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">+0.011</td>
+          <td data-col="rho" class="num">+0.013</td>
+          <td data-col="ci" class="num">[+0.008, +0.014]</td>
         </tr>
-        <tr>
-          <td>4</td>
-          <td>Low stakes (incumbents)</td>
-          <td class="num">+.007</td>
-          <td class="num">+.008</td>
-          <td class="num">[.000, .014]</td>
+        <tr data-group="low-stakes-incumbents" tabindex="0" role="row"
+            data-r="0.007078431125929467" data-rho="0.008430287477333723"
+            data-ci-lo="0.0003361627225405995" data-ci-hi="0.013820699529318334"
+            data-rank="4" data-k="5"
+            data-se="0.0034399328588718713" data-sum-w="84508.43671262081"
+            aria-label="Low stakes (incumbents), rank 4">
+          <td class="shape-cell" aria-hidden="true">●</td>
+          <td data-col="rank" class="num">4</td>
+          <td data-col="group">Low stakes (incumbents)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">+0.007</td>
+          <td data-col="rho" class="num">+0.008</td>
+          <td data-col="ci" class="num">[+0.000, +0.014]</td>
         </tr>
-        <tr>
-          <td>5</td>
-          <td>Military (mixed stakes)</td>
-          <td class="num">&minus;.013</td>
-          <td class="num">&minus;.016</td>
-          <td class="num">[&minus;.020, &minus;.007]</td>
+        <tr data-group="military-mixed-stakes" tabindex="0" role="row"
+            data-r="-0.0133554326250488" data-rho="-0.016295238886158716"
+            data-ci-lo="-0.019522942468681196" data-ci-hi="-0.007187922781416402"
+            data-rank="5" data-k="5"
+            data-se="0.003146688695730815" data-sum-w="100993.27137057495"
+            aria-label="Military (mixed stakes), rank 5">
+          <td class="shape-cell" aria-hidden="true">■</td>
+          <td data-col="rank" class="num">5</td>
+          <td data-col="group">Military (mixed stakes)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">−0.013</td>
+          <td data-col="rho" class="num">−0.016</td>
+          <td data-col="ci" class="num">[−0.020, −0.007]</td>
         </tr>
-        <tr class="highlight">
-          <td>6</td>
-          <td>High stakes (applicants)</td>
-          <td class="num">&minus;.017</td>
-          <td class="num">&minus;.020</td>
-          <td class="num">[&minus;.023, &minus;.010]</td>
+        <tr data-group="high-stakes-applicants" tabindex="0" role="row" class="highlight"
+            data-r="-0.01682614491193897" data-rho="-0.02034563802843565"
+            data-ci-lo="-0.023335127574486504" data-ci-hi="-0.010317162249391436"
+            data-rank="6" data-k="5"
+            data-se="0.003320909521707925" data-sum-w="90674.65528597067"
+            aria-label="High stakes (applicants), rank 6">
+          <td class="shape-cell" aria-hidden="true">◆</td>
+          <td data-col="rank" class="num">6</td>
+          <td data-col="group">High stakes (applicants)</td>
+          <td data-col="k" class="num">5</td>
+          <td data-col="r" class="num">−0.017</td>
+          <td data-col="rho" class="num">−0.020</td>
+          <td data-col="ci" class="num">[−0.023, −0.010]</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="alteryx-credit">Weighted aggregation built in Alteryx Designer Cloud and cross-verified in Python.</p>
+  <div class="row-detail" id="row-detail" hidden></div>
+  <p class="download-row">
+    Download:
+    <a href="data/python_verified_with_ci.csv" download>data (CSV)</a> &middot;
+    <a href="assets/stakes-group-weighted-mean-forest.png" download>forest (PNG)</a> &middot;
+    <a href="assets/stakes-group-weighted-mean-forest.svg" download>forest (SVG)</a>
+  </p>
+  <p class="source-note">Descriptive inverse-variance aggregation of the five trait-level
+  estimates in <a href="data/table1_meta_by_stakes.csv">table1_meta_by_stakes.csv</a>;
+  plotted values in <a href="data/python_verified_with_ci.csv">python_verified_with_ci.csv</a>.</p>
 </section>
 
 <footer>
@@ -168,7 +255,7 @@
   <p><a href="https://mjmonnot.github.io/">mjmonnot.github.io</a> &middot;
   Contact: matt@vocentive.com</p>
 </footer>
-
 </main>
+<script src="evidence.js" defer></script>
 </body>
 </html>
