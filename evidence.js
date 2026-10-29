@@ -5,7 +5,7 @@
   if (!table) return;
   var tbody = table.querySelector("tbody");
   var detail = document.getElementById("row-detail");
-  var forest = document.querySelector(".forest-svg");
+  var forests = document.querySelectorAll(".forest-svg");
   var headers = table.querySelectorAll("th.sortable");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -14,7 +14,11 @@
   }
 
   function forestRows() {
-    return forest ? Array.prototype.slice.call(forest.querySelectorAll(".forest-row")) : [];
+    var out = [];
+    Array.prototype.forEach.call(forests, function (svg) {
+      Array.prototype.push.apply(out, svg.querySelectorAll(".forest-row"));
+    });
+    return out;
   }
 
   function clearActive() {

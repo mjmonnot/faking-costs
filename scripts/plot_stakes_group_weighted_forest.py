@@ -108,7 +108,7 @@ def main() -> None:
             f"  {m:+.3f}   k={k}",
             va="center",
             ha="left",
-            fontsize=11,
+            fontsize=12,
             color=GRAY,
         )
 
@@ -121,7 +121,7 @@ def main() -> None:
         color=INK,
     )
     ax.set_xlim(-0.04, 0.055)
-    ax.tick_params(axis="x", colors=GRAY, labelsize=11)
+    ax.tick_params(axis="x", colors=GRAY, labelsize=12)
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
     ax.spines["left"].set_color("#e3dccf")
@@ -167,7 +167,7 @@ def main() -> None:
         ],
         loc="lower right",
         frameon=False,
-        fontsize=10,
+        fontsize=12,
     )
     fig.tight_layout()
     fig.savefig(OUT_PNG, bbox_inches="tight", facecolor=BG)
@@ -178,10 +178,12 @@ def main() -> None:
     # Hand-authored interactive SVG for inlining (data-group sync with table)
     write_inline_svg(rows)
     print(f"wrote {OUT_INLINE}")
+    write_mobile_inline_svg(rows)
+    print(f"wrote {OUT_INLINE_MOBILE}")
 
 
 def write_inline_svg(rows: list[dict]) -> None:
-    """SVG with one <g data-group> per row; rank 1 at top."""
+    """Desktop SVG with one <g data-group> per row; rank 1 at top."""
     rows = sorted(rows, key=lambda r: int(r["OrdinalRanking"]))  # top = rank 1
     W, H = 720, 340
     ml, mr, mt, mb = 210, 90, 36, 48
@@ -199,7 +201,8 @@ def write_inline_svg(rows: list[dict]) -> None:
 
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
-        f'role="img" aria-labelledby="forest-title forest-desc" class="forest-svg" '
+        f'role="img" aria-labelledby="forest-title forest-desc" '
+        f'class="forest-svg forest-svg-desktop" '
         f'width="100%" height="auto" focusable="false">',
         '<title id="forest-title">Cross-trait weighted mean r by assessment stakes</title>',
         '<desc id="forest-desc">Forest plot of inverse-variance-weighted mean Big Five '
@@ -210,12 +213,10 @@ def write_inline_svg(rows: list[dict]) -> None:
         f'<rect x="{ml}" y="{mt}" width="{plot_w}" height="{plot_h}" fill="#ffffff" stroke="#e3dccf"/>',
         f'<text x="{ml}" y="22" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" '
         f'font-size="15" font-weight="700" fill="{INK}">Cross-trait weighted mean r by assessment stakes</text>',
-        # zero line
         f'<line x1="{xmap(0):.2f}" y1="{mt}" x2="{xmap(0):.2f}" y2="{mt+plot_h}" '
         f'stroke="#cfc6b8" stroke-width="1.2"/>',
     ]
 
-    # x ticks
     for tick in (-0.03, -0.02, -0.01, 0.0, 0.01, 0.02):
         x = xmap(tick)
         parts.append(
@@ -223,7 +224,7 @@ def write_inline_svg(rows: list[dict]) -> None:
         )
         parts.append(
             f'<text x="{x:.2f}" y="{mt+plot_h+20}" text-anchor="middle" '
-            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="{GRAY}">{tick:+.2f}</text>'
+            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="{GRAY}">{tick:+.2f}</text>'
         )
     parts.append(
         f'<text x="{ml + plot_w/2:.1f}" y="{H-8}" text-anchor="middle" '
@@ -242,7 +243,6 @@ def write_inline_svg(rows: list[dict]) -> None:
         y = ymap(i)
         x0, x1, xm = xmap(lo), xmap(hi), xmap(m)
         lw = 3.0 if "High stakes" in g else 2.4
-        # shape
         if "High stakes" in g:
             shape = (
                 f'<polygon points="{xm:.2f},{y-7:.2f} {xm+7:.2f},{y:.2f} '
@@ -271,15 +271,14 @@ def write_inline_svg(rows: list[dict]) -> None:
             f'<line x1="{x1:.2f}" y1="{y-5:.2f}" x2="{x1:.2f}" y2="{y+5:.2f}" stroke="{c}" stroke-width="{lw}"/>'
             f"{shape}"
             f'<text class="row-annot" x="{xmap(0.028):.2f}" y="{y+4:.2f}" '
-            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="11" fill="{GRAY}">'
+            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="{GRAY}">'
             f"{m:+.3f} · k={k}</text>"
             f"</g>"
         )
 
-    # legend
     ly = mt + 8
     parts.append(
-        f'<g class="legend" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="{GRAY}">'
+        f'<g class="legend" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="12" fill="{GRAY}">'
         f'<circle cx="{ml+12}" cy="{ly}" r="5" fill="{BLUE}"/><text x="{ml+22}" y="{ly+3}">Low-stakes</text>'
         f'<rect x="{ml+100}" y="{ly-5}" width="10" height="10" fill="{GOLD}"/>'
         f'<text x="{ml+116}" y="{ly+3}">Military</text>'
@@ -289,6 +288,131 @@ def write_inline_svg(rows: list[dict]) -> None:
     )
     parts.append("</svg>")
     OUT_INLINE.write_text("\n".join(parts) + "\n")
+
+
+OUT_INLINE_MOBILE = ROOT / "assets" / "stakes-group-weighted-mean-forest-inline-mobile.svg"
+
+
+def write_mobile_inline_svg(rows: list[dict]) -> None:
+    """Narrow SVG (~360 wide): label above each CI row; no H-scroll at 360 CSS px."""
+    rows = sorted(rows, key=lambda r: int(r["OrdinalRanking"]))
+    W = 360
+    # Layout: title 36 + legend 28 + 6*(label 18 + bar 28 + gap 8) + axis 44
+    row_block = 54  # label line + CI row
+    mt = 64  # below title+legend
+    mb = 52
+    n = len(rows)
+    H = mt + n * row_block + mb
+    ml, mr = 16, 16
+    plot_w = W - ml - mr
+    xmin, xmax = -0.04, 0.03
+    # font-size 14 so at ~310 CSS px display (360 viewport - padding) → ≥12 CSS px
+    FS = 14
+    FS_TITLE = 14
+    FS_AXIS = 14
+
+    def xmap(v: float) -> float:
+        return ml + (v - xmin) / (xmax - xmin) * plot_w
+
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+        f'role="img" aria-labelledby="forest-title-m forest-desc-m" '
+        f'class="forest-svg forest-svg-mobile" '
+        f'width="100%" height="auto" focusable="false">',
+        '<title id="forest-title-m">Cross-trait weighted mean r by assessment stakes</title>',
+        '<desc id="forest-desc-m">Forest plot of inverse-variance-weighted mean Big Five '
+        "by GMA correlations for six stakes groups. Each study label sits above its "
+        "confidence interval. Circles mark low-stakes, squares military, diamonds high-stakes.</desc>",
+        f'<rect width="{W}" height="{H}" fill="{BG}"/>',
+        f'<text x="{ml}" y="20" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" '
+        f'font-size="{FS_TITLE}" font-weight="700" fill="{INK}">Cross-trait weighted mean r</text>',
+        f'<text x="{ml}" y="38" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" '
+        f'font-size="{FS_TITLE}" font-weight="700" fill="{INK}">by assessment stakes</text>',
+        # legend
+        f'<g class="legend" font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="{FS}" fill="{GRAY}">'
+        f'<circle cx="{ml+6}" cy="54" r="5" fill="{BLUE}"/><text x="{ml+16}" y="58">Low-stakes</text>'
+        f'<rect x="118" y="49" width="10" height="10" fill="{GOLD}"/>'
+        f'<text x="134" y="58">Military</text>'
+        f'<polygon points="214,48 221,54 214,60 207,54" fill="{RED}"/>'
+        f'<text x="227" y="58">High-stakes</text>'
+        f"</g>",
+    ]
+
+    plot_top = mt
+    plot_bot = mt + n * row_block - 8
+    # white plot backdrop spanning CI band area
+    parts.append(
+        f'<rect x="{ml}" y="{plot_top}" width="{plot_w}" height="{plot_bot - plot_top}" '
+        f'fill="#ffffff" stroke="#e3dccf"/>'
+    )
+    parts.append(
+        f'<line x1="{xmap(0):.2f}" y1="{plot_top}" x2="{xmap(0):.2f}" y2="{plot_bot}" '
+        f'stroke="#cfc6b8" stroke-width="1.2"/>'
+    )
+
+    for i, r in enumerate(rows):
+        g = r["group"]
+        sid = slug(g)
+        m = float(r["wmean_r"])
+        lo = float(r["ci95_lo"])
+        hi = float(r["ci95_hi"])
+        k = int(float(r["k_rows"]))
+        c = color_for(g)
+        block_y = mt + i * row_block
+        label_y = block_y + 16
+        bar_y = block_y + 34
+        x0, x1, xm = xmap(lo), xmap(hi), xmap(m)
+        lw = 3.0 if "High stakes" in g else 2.4
+        if "High stakes" in g:
+            shape = (
+                f'<polygon points="{xm:.2f},{bar_y-7:.2f} {xm+7:.2f},{bar_y:.2f} '
+                f'{xm:.2f},{bar_y+7:.2f} {xm-7:.2f},{bar_y:.2f}" fill="{c}" stroke="#fff" stroke-width="1.2"/>'
+            )
+        elif "Military" in g:
+            shape = (
+                f'<rect x="{xm-6:.2f}" y="{bar_y-6:.2f}" width="12" height="12" '
+                f'fill="{c}" stroke="#fff" stroke-width="1.2"/>'
+            )
+        else:
+            shape = (
+                f'<circle cx="{xm:.2f}" cy="{bar_y:.2f}" r="6.5" '
+                f'fill="{c}" stroke="#fff" stroke-width="1.2"/>'
+            )
+        label = html.escape(g)
+        parts.append(
+            f'<g class="forest-row" data-group="{sid}" tabindex="-1">'
+            f'<rect class="row-hit" x="0" y="{block_y:.2f}" width="{W}" height="{row_block:.2f}" '
+            f'fill="transparent"/>'
+            f'<text x="{ml}" y="{label_y:.2f}" text-anchor="start" '
+            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="{FS}" fill="{INK}">{label}</text>'
+            f'<text class="row-annot" x="{W - mr}" y="{label_y:.2f}" text-anchor="end" '
+            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="{FS}" fill="{GRAY}">'
+            f"{m:+.3f} · k={k}</text>"
+            f'<line x1="{x0:.2f}" y1="{bar_y:.2f}" x2="{x1:.2f}" y2="{bar_y:.2f}" stroke="{c}" '
+            f'stroke-width="{lw}" stroke-linecap="round"/>'
+            f'<line x1="{x0:.2f}" y1="{bar_y-5:.2f}" x2="{x0:.2f}" y2="{bar_y+5:.2f}" stroke="{c}" stroke-width="{lw}"/>'
+            f'<line x1="{x1:.2f}" y1="{bar_y-5:.2f}" x2="{x1:.2f}" y2="{bar_y+5:.2f}" stroke="{c}" stroke-width="{lw}"/>'
+            f"{shape}"
+            f"</g>"
+        )
+
+    # x ticks
+    for tick in (-0.03, -0.02, -0.01, 0.0, 0.01, 0.02):
+        x = xmap(tick)
+        parts.append(
+            f'<line x1="{x:.2f}" y1="{plot_bot}" x2="{x:.2f}" y2="{plot_bot+5}" stroke="{GRAY}" stroke-width="1"/>'
+        )
+        parts.append(
+            f'<text x="{x:.2f}" y="{plot_bot+20}" text-anchor="middle" '
+            f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="{FS}" fill="{GRAY}">{tick:+.2f}</text>'
+        )
+    parts.append(
+        f'<text x="{W/2:.1f}" y="{H-10}" text-anchor="middle" '
+        f'font-family="system-ui,Segoe UI,Helvetica,Arial,sans-serif" font-size="{FS_AXIS}" fill="{INK}">'
+        f"Weighted mean observed r (Big Five × GMA)</text>"
+    )
+    parts.append("</svg>")
+    OUT_INLINE_MOBILE.write_text("\n".join(parts) + "\n")
 
 
 if __name__ == "__main__":
