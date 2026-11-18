@@ -1,220 +1,830 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Three in ten applicants fake the personality test &mdash; and it's the weaker ones</title>
-<meta name="description" content="Roughly 30% of genuine applicants inflate their personality scores, and lower-ability applicants inflate most. Interactive companion to a two-study manuscript: price what that costs your hiring funnel in changed hires, lost performance, and dollars.">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In simulations with four in ten applicants faking, 22% to 36% of hiring decisions changed and average performance of those hired fell 8% to 19% | Matthew J. Monnot</title>
+  <meta name="description" content="Simulations fitted to applicant data estimate what faking does to hiring outcomes. With 40% of applicants faking, 22% to 36% of hiring decisions changed and the average performance of those hired fell 8% to 19%. Includes a calculator that applies these simulated results to your hire count and salary. Research companion to the preprint.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mjmonnot.github.io/faking-costs/">
+  <meta property="og:title" content="In simulations with four in ten applicants faking, 22% to 36% of hiring decisions changed and average performance of those hired fell 8% to 19%">
+  <meta property="og:description" content="With 40% of applicants faking, 22% to 36% of simulated hiring decisions changed and the average performance of those hired fell 8% to 19%. Includes a calculator that applies these simulated results to your hire count and salary.">
+  <meta property="og:image" content="https://mjmonnot.github.io/faking-costs/assets/figure1-big-five-by-context.png">
+  <meta property="og:site_name" content="Matthew J. Monnot">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>#bf-chart text, #rg-chart text, #sm-multiples text, #ig-multiples text { font-size: 14px; } #bf-chart text.lbl, #rg-chart text.lbl, #sm-multiples text.lbl, #ig-multiples text.lbl { font-size: 14px; } #bf-chart text.t13, #rg-chart text.t13, #sm-multiples text.t13, #ig-multiples text.t13 { font-size: 13px; }</style>
+  <style>
+    .calc-hires > h3, .calc-hires > p { grid-column: 1 / -1; margin: 0; }
+    .calc-hires > h3 { margin-bottom: -12px; }
+    .calc-hires { margin-top: 32px; }
+    .calc-hires fieldset label { display: block; margin: 0 0 6px; }
+    .calc-hires .num-row { margin-top: 14px; }
+    .calc-hires .num-row label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .calc-hires .num-row input { font: inherit; padding: 6px 8px; width: 11em; max-width: 100%; border: 1px solid var(--gray); border-radius: 4px; }
+    .calc-hires .slider-row output { width: 4em; }
+    .calc-hires .slider-row input[type="range"] { width: calc(100% - 5em); }
+    .calc-hires .kicker-bar { margin-top: 4px; }
+    .calc-hires .stat-sub { max-width: none; }
+    .calc-hires input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    #hires-wrap { margin-bottom: 32px; }
+    #bf-chart, #rg-chart, .multiples svg { border: none; background: none; overflow: visible; }
+    #bf-chart text, #rg-chart text, .multiples text { fill: #5b6570; }
+    #bf-chart text.ink, #rg-chart text.ink, .multiples text.ink { fill: var(--ink); }
+    #bf-chart text.b, #rg-chart text.b, .multiples text.b { font-weight: 700; }
+    #bf-chart g[role="button"], #rg-chart g[role="button"] { cursor: pointer; outline: none; }
+    #bf-chart g[role="button"]:focus-visible, #rg-chart g[role="button"]:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .multiples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 560px) { .multiples { grid-template-columns: 1fr; } }
+    .multiples .mp { cursor: pointer; }
+    .multiples .mp:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .multiples .mp svg { display: block; width: 100%; height: auto; }
+    .calc-wide { grid-template-columns: 1fr; gap: 24px; }
+    .calc-wide .results { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 24px; }
+  </style>
 </head>
 <body>
 <main>
 
-<nav class="site-nav" aria-label="Site">
-  <ul>
-    <li><a href="./" aria-current="page">Overview &amp; calculator</a></li>
-    <li><a href="evidence.html">The evidence</a></li>
-    <li><a href="playbook.html">Playbook</a></li>
-    <li><a href="references.html">Key references</a></li>
-  </ul>
-</nav>
+<p class="backlink"><a href="https://mjmonnot.github.io/publications/2026-compensatory-faking.html">&larr; Publication page</a> &nbsp;&middot;&nbsp; <a href="https://mjmonnot.github.io/">mjmonnot.github.io</a></p>
 
 <header class="masthead">
-  <p class="kicker">Personnel selection &middot; Research companion</p>
-  <h1>Three in ten applicants fake the personality test. It&rsquo;s not the ones you&rsquo;d guess.</h1>
-  <p class="dek">Published within-person estimates put faking at roughly 30% of genuine
-  applicants &mdash; up to one in two &mdash; and the applicants inflating their scores
-  the most are the <em>lower-ability</em> ones. Under top-down selection they gain seats
-  at the organization&rsquo;s expense. This page lets you price that. The model behind it
-  is a Monte Carlo simulation whose parameters are solved to reproduce published
-  meta-analytic applicant evidence &mdash; not assumed.</p>
+  <p class="kicker">Applicant faking on personality tests &middot; Research companion</p>
+  <h1>In simulations with four in ten applicants faking, 22% to 36% of hiring decisions changed and average performance of those hired fell 8% to 19%.</h1>
+  <p class="dek">The simulations are fitted to applicant data. In a public database of studies run between 1925 and 2014, job applicants showed a slightly negative link between ability and self-rated conscientiousness, while employees tested for research showed a slightly positive one. The reversal was concentrated in applicant studies outside the U.S. Ability scores are difficult to inflate, so a shift in that link under real stakes is one measurable sign of applicants distorting their self-ratings. No new data were collected from people.</p>
   <div class="masthead-actions">
     <a class="btn primary" href="https://mjmonnot.github.io/assets/pdfs/Monnot_2026_Compensatory_Faking_SSRN_7611561.pdf">Download the preprint PDF</a>
-    <a class="btn ghost" href="https://doi.org/10.2139/ssrn.7611561">DOI / SSRN</a>
+    <a class="btn ghost" href="https://doi.org/10.2139/ssrn.7611561">DOI on SSRN</a>
+    <a class="btn ghost" href="#calculator">Try the hiring calculator</a>
   </div>
+  <nav class="audience-nav" aria-label="Jump to the part written for you">
+    <span class="lead">Start where it suits you:</span>
+    <a href="#plain">In plain words</a>
+    <a href="#practice">In practice</a>
+    <a href="#writers">For writers</a>
+    <a href="#evidence">The evidence</a>
+    <a href="#specialists">For specialists</a>
+  </nav>
 </header>
 
-<section aria-labelledby="s1">
-  <p class="section-label" id="s1">1 &middot; Who fakes: the compensatory pattern</p>
-  <figure class="paper-figure">
-    <img src="assets/who-fakes-scatter.png" width="1748" height="1026"
-         alt="Scatter plot of simulated applicants: inflation of personality scores on the vertical axis against real cognitive ability on the horizontal axis. Honest responders sit at zero inflation. Fakers form a downward-sloping cloud: lower-ability applicants inflate the most, higher-ability applicants inflate far less.">
-    <figcaption><strong>Each dot is an applicant.</strong> Honest responders (gray)
-    add nothing to their scores. Fakers (red) inflate &mdash; and the lower their real
-    cognitive ability, the more they add. Simulated pool from the manuscript&rsquo;s
-    mechanism model, calibrated so it reproduces the published applicant evidence;
-    the pattern matches the field finding that ability correlates &minus;.19 with
-    measured score inflation among genuine applicants.</figcaption>
-  </figure>
+<section id="plain" aria-labelledby="s-find">
+  <p class="section-label" id="s-find">Three findings</p>
+  <ol class="headlines" id="headlines">
+    <li>In computer simulations fitted to applicant data, with 40% of applicants faking, 22% to 36% of hiring decisions changed and the average performance of those hired fell 8% to 19%.</li>
+    <li>In 9 of the 12 simulated conditions reported, the ratio used in bias audits moved by 0.03 or less. In a second simulation, applicants hired only because of faking were 0.16 to 0.45 standard deviations lower in honesty-humility than the applicants they displaced (0.29 to 0.70 when integrity is taken from overt integrity tests).</li>
+    <li>Among applicants in this database, higher ability was associated with slightly lower self-rated conscientiousness, while among employees tested for research the link was slightly positive. The reversal was concentrated in applicant studies outside the U.S. In U.S. studies the difference was near zero (&minus;.01, 95% CI [&minus;.07, .06]).</li>
+  </ol>
+</section>
 
-  <figure class="flip-figure">
-    <svg viewBox="0 0 720 150" role="img" aria-label="Number line showing the Conscientiousness by cognitive ability correlation at plus .03 among employees in research settings and minus .07 among genuine applicants.">
-      <line x1="40" y1="100" x2="680" y2="100" stroke="#5a6572" stroke-width="1"/>
-      <g font-size="13" fill="#5a6572" text-anchor="middle">
-        <text x="76"  y="122">&minus;.10</text>
-        <text x="220" y="122">&minus;.07</text>
-        <text x="412" y="122">0</text>
-        <text x="556" y="122">+.03</text>
-        <text x="652" y="122">+.06</text>
-      </g>
-      <line x1="412" y1="88" x2="412" y2="100" stroke="#5a6572" stroke-width="1"/>
-      <path d="M 536 56 C 450 18, 330 24, 240 62" fill="none" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)"/>
-      <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-        <path d="M0,0 L9,4.5 L0,9 z" fill="#1f2a36"/></marker></defs>
-      <circle cx="556" cy="76" r="11" fill="#2e6f9e"/>
-      <circle cx="220" cy="76" r="13" fill="#c0392b"/>
-      <text x="556" y="42" font-size="14" font-weight="700" fill="#2e6f9e" text-anchor="middle">Employees, research setting</text>
-      <text x="220" y="42" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Genuine applicants, real stakes</text>
-    </svg>
-    <figcaption>The fingerprint this pattern leaves in the aggregate data: the
-    Conscientiousness &times; cognitive-ability correlation reverses sign when the
-    test decides who gets hired, from <em>r&#773;</em> = +.03 among employees tested
-    for research to &minus;.07 among genuine applicants, across meta-analytic databases
-    of 130,000&ndash;188,000 test-takers. The other Big Five relations do not shift.
-    This compensatory pattern is the only faking pattern that reproduces the
-    meta-analytic evidence &mdash; <a href="evidence.html">see the full figures</a>.</figcaption>
+<section aria-labelledby="s0">
+  <p class="section-label" id="s0">At a glance</p>
+  <div class="strip">
+    <div class="stat"><span class="stat-value red">22% to 36%</span><span class="stat-label">Simulated top-down hiring decisions changed by faking</span><span class="stat-sub">Study 1 simulation, 40% of applicants faking, 200,000 simulated applicants per condition</span></div>
+    <div class="stat"><span class="stat-value red">8% to 19%</span><span class="stat-label">Lower average performance of those hired</span><span class="stat-sub">Study 1 simulation, same conditions; proportional drop in the average true performance of those hired (Table 4)</span></div>
+    <div class="stat"><span class="stat-value red">0.16 to 0.45 SD</span><span class="stat-label">Lower honesty-humility of simulated applicants hired only because of faking</span><span class="stat-sub">Compared with the simulated applicants they displaced; Study 2, HEXACO, linear inflation form (Table 6). Under the ceiling form the gaps were 0.33 to 0.49 SD</span></div>
+    <div class="stat"><span class="stat-value red">&minus;.07 and .03</span><span class="stat-label">Ability and conscientiousness correlation: applicants and employees tested for research</span><span class="stat-sub">20 applicant samples (20,757 people) and 71 employee samples (18,242 people); difference &minus;.11, 95% CI [&minus;.18, &minus;.03]</span></div>
+  </div>
+</section>
+
+<section id="practice" aria-labelledby="s-prac">
+  <p class="section-label" id="s-prac">What this means in practice</p>
+  <div class="brief">
+    <p class="q">The decision</p>
+    <p class="decision">Employers combine ability tests with personality questionnaires and rely on published correlations between the two to design composites and project adverse impact. The paper asks whether those correlations hold when applicants have a job at stake, and what applicant faking does to hiring.</p>
+    <p class="answer"><strong>In the simulations, faking changed many hiring decisions while the adverse-impact ratio moved by 0.03 or less in 9 of the 12 simulated conditions, and a passed bias audit does not show whether applicants faked.</strong> Use an ability and conscientiousness correlation that matches the hiring setting. In this database, the applicant value differed from the research value, and the difference was concentrated in studies outside the U.S. In the Study 1 non-U.S. condition the ratio rose from 0.37 to 0.52 at a .10 selection ratio. The paper also states that stakes were not randomly assigned, so the database results describe differences between settings and do not establish cause.</p>
+  </div>
+  <div class="cards">
+    <div class="card do">
+      <h3>What was found</h3>
+      <ul>
+        <li>The conscientiousness link with ability was &minus;.07 in applicant samples and .03 in employee samples tested for research. For the other four broad traits, applicant minus employee differences were small and not significant (all |&Delta;| &le; .02, <em>p</em> &ge; .29).</li>
+        <li>Outside the U.S., the applicant value was &minus;.27; in U.S. studies it was .01.</li>
+        <li>In the simulations, simulated applicants who gained a seat through faking performed 0.33 SD worse than those they displaced, in the condition shown in Figure 4.</li>
+      </ul>
+    </div>
+    <div class="card ask">
+      <h3>What to watch, as named in the paper</h3>
+      <ul>
+        <li>Setting-matched values. The paper recommends about +.01 for U.S. high-stakes selection, &minus;.27 for the non-U.S. settings in this database, and the employee value (+.03) for research testing.</li>
+        <li>Who gets hired. In Study 2, faked-in hires were lower in honesty-humility while the adverse-impact ratio moved by 0.03 or less (Table 6), so an audit built on selection-rate ratios would not show this change.</li>
+        <li>Countermeasures. The paper names verification warnings and forced-choice formats. It also recommends measuring integrity directly.</li>
+      </ul>
+    </div>
+    <div class="card test">
+      <h3>What would sharpen the answer</h3>
+      <ul>
+        <li>Primary studies that cross personality inventories with regions, so instrument and region can be told apart.</li>
+        <li>Within-person studies of real applicants that measure integrity directly.</li>
+        <li>A combined analysis of this database with the large operational applicant datasets it does not contain.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fineprint">The first card follows the paper&rsquo;s Results sections. The second card follows its Practical Implications section. In the third card, measuring integrity directly is from p. 32 and the combined analysis is from p. 36; the remaining item follows its Limitations and Future Directions section. To discuss an assessment design: <a href="mailto:matt@vocentive.com">matt@vocentive.com</a>.</p>
+  <div class="calc calc-hires" id="calculator">
+    <h3>Try it with your own hiring numbers</h3>
+    <p>Pick a setting, the share of applicants who fake, how selective the hire is, and what the job pays. Every output is read from precomputed runs of the paper&rsquo;s simulation model, with 400,000 simulated applicants per setting. These are simulation outputs, not forecasts for any one organization.</p>
+    <div class="controls">
+      <fieldset>
+        <legend>Applicant setting</legend>
+        <label><input type="radio" name="ctx" value="US" checked> U.S. applicant studies (correlation +.01)</label>
+        <label><input type="radio" name="ctx" value="Pooled"> All applicant studies pooled (&minus;.07)</label>
+        <label><input type="radio" name="ctx" value="Non-US"> Applicant studies outside the U.S. (&minus;.27)</label>
+      </fieldset>
+      <div class="slider-row">
+        <label for="hc-prev">Applicants who fake</label>
+        <input type="range" id="hc-prev" min="30" max="50" step="5" value="40">
+        <output for="hc-prev" id="hc-prev-out">40%</output>
+      </div>
+      <p class="control-note">The paper&rsquo;s main simulations use 40%. Published estimates run from about 20% to 50%: within-person studies of applicants give 30% to 50%, and a synthesis of the evidence gives about 30%, give or take 10 points. At 20% the model needs more inflation per faker than response scales allow, so the paper treats that case as an upper bound and it is left out here.</p>
+      <div class="slider-row">
+        <label for="hc-sr">Share of applicants hired (selection ratio)</label>
+        <input type="range" id="hc-sr" min="5" max="50" step="5" value="10">
+        <output for="hc-sr" id="hc-sr-out">10%</output>
+      </div>
+      <div class="num-row">
+        <label for="hc-hires">Hires per year</label>
+        <input type="number" id="hc-hires" min="1" max="100000" step="1" value="50" inputmode="numeric">
+      </div>
+      <div class="num-row">
+        <label for="hc-salary">Average salary for the role (US$)</label>
+        <input type="number" id="hc-salary" min="20000" max="1000000" step="5000" value="70000" inputmode="numeric">
+      </div>
+    </div>
+    <div class="results" aria-live="polite" id="hc-results">
+      <p class="reading" id="hc-msg" hidden></p>
+      <div id="hc-out" hidden>
+        <div class="stat">
+          <span class="stat-value red" id="hc-changed"></span>
+          <span class="stat-label">of hiring decisions differ from what honest answers would have produced</span>
+          <span class="stat-sub" id="hc-changed-n"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-value red" id="hc-perf"></span>
+          <span class="stat-label">lower average performance of those hired</span>
+          <span class="stat-sub" id="hc-perf-d"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-value red" id="hc-swap"></span>
+          <span class="stat-label">performance gap between a hire who got in through faking and the applicant displaced</span>
+          <span class="stat-sub" id="hc-swap-d"></span>
+        </div>
+        <div class="kicker-bar" id="hc-bar">
+          <p class="kicker-main" id="hc-ai"></p>
+          <p class="kicker-sub" id="hc-ai-note"></p>
+        </div>
+      </div>
+    </div>
+    <p class="fineprint">Dollar values are illustrative. They use the convention, as the paper does, that one standard deviation of job performance is worth 40% of salary (Schmidt &amp; Hunter, 1983). At the paper&rsquo;s own settings (40% faking, 1 in 10 or 3 in 10 hired) the calculator is within 0.3 percentage points of Table 4 for hires changed, within 1.6 points for performance loss and within 0.04 for the adverse-impact ratio; the paper&rsquo;s table uses pools of 200,000. For the swapped-hire gap the paper reports (outside the U.S., 1 in 10 hired: 0.33 SD), the calculator shows 0.30 SD.</p>
+  </div>
+</section>
+
+<section id="writers" aria-labelledby="s-writ">
+  <p class="section-label" id="s-writ">For writers and editors</p>
+  <p class="oneline" id="oneline">In simulations fitted to applicant data, with 40% of applicants faking on a personality questionnaire, 22% to 36% of hiring decisions changed and the average performance of those hired fell 8% to 19%.</p>
+  <p class="fineprint" style="margin-top:8px"><button type="button" class="copy-btn" id="copy-oneline">Copy this sentence</button></p>
+  <dl class="facts">
+    <dt>Paper</dt><dd>&ldquo;Compensatory Faking and the Relationship Between Cognitive Ability and Personality in Personnel Selection: Meta-Analytic Evidence and Trait-Driven Simulations,&rdquo; by Matthew J. Monnot (Vocentive).</dd>
+    <dt>Kind of study</dt><dd>Two studies. Study 1 is a meta-analysis of correlations from a public database, plus a Monte Carlo simulation of hiring consequences. Study 2 is a further computer simulation fitted to those results. Neither study collected data from people, and no review board approval was required.</dd>
+    <dt>Status</dt><dd>Preprint posted on SSRN (2026). Not peer reviewed.</dd>
+    <dt>Data</dt><dd>The Personality Traits and Cognitive Abilities Relations Database of Stanek and Ones (2023), doi.org/10.13020/7YS8-ET75, used under a CC BY-NC-ND 3.0 US license and not redistributed. The database authors were not involved in this study. The study was not preregistered; the paper states that its first two research questions were specified before the moderator and simulation analyses were run.</dd>
+    <dt>What was studied</dt><dd>2,158 independent sample and trait correlations between a general ability score and one of the five broad personality traits. Applicant samples numbered 11 to 21 per trait (13,137 to 22,775 people). The focal comparison was with employees tested for research.</dd>
+    <dt>AI use</dt><dd>The preprint carries no statement on the use of AI tools. It states that the author received no external funding and declares no conflicts of interest.</dd>
+  </dl>
+  <div class="say-grid">
+    <div class="say yes">
+      <h3>The study supports</h3>
+      <ul>
+        <li>&ldquo;Among job applicants in this database, higher ability was associated with slightly lower self-rated conscientiousness.&rdquo;<span>Mean correlation &minus;.07, 95% CI [&minus;.14, &minus;.00], in 20 applicant samples (20,757 people), against .03 [.01, .06] in 71 employee samples tested for research (18,242 people).</span></li>
+        <li>&ldquo;The reversal was concentrated in applicant studies outside the U.S.&rdquo;<span>Outside the U.S., applicant minus employee difference &minus;.33, 95% CI [&minus;.42, &minus;.24]; in U.S. studies &minus;.01, 95% CI [&minus;.07, .06]. One UK-developed inventory family supplied 78% of the non-U.S. applicant sample.</span></li>
+        <li>&ldquo;In simulations fitted to these results, faking by 40% of applicants changed 22% to 36% of top-down hiring decisions.&rdquo;<span>Mean performance of those hired fell 8.4% to 18.7% from honest responding in that simulated pool (Table 4).</span></li>
+      </ul>
+    </div>
+    <div class="say no">
+      <h3>It does not support</h3>
+      <ul>
+        <li>&ldquo;Higher stakes cause lower-ability applicants to fake.&rdquo;<span>Stakes were not randomly assigned. The paper states that the database results identify differences between settings in correlations, and that its mechanism language reflects model assumptions.</span></li>
+        <li>&ldquo;The reversal holds for high-stakes testing everywhere.&rdquo;<span>With six large operational applicant datasets added, the applicant estimate moved from &minus;.07 to +.06, and the U.S. estimate from +.01 to +.07. The paper ties the negative value to UK and Australian or New Zealand occupational-inventory settings.</span></li>
+        <li>&ldquo;Faking costs an employer $9,100 per hire.&rdquo;<span>That dollar figure is illustrative. It applies per swapped hire per year in one simulated condition, using a convention that the dollar spread of performance equals 40% of a $70,000 salary.</span></li>
+        <li>&ldquo;Targeted inflation is proven to be how applicants fake.&rdquo;<span>The paper states that its comparison shows targeted inflation is sufficient and trait-general inflation is ruled out. It adds that this does not make targeted inflation uniquely correct.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cite-box">
+    <p id="cite-text">Monnot, M. J. (2026). <em>Compensatory faking and the relationship between cognitive ability and personality in personnel selection: Meta-analytic evidence and trait-driven simulations</em> [Preprint]. SSRN. https://doi.org/10.2139/ssrn.7611561</p>
+    <button type="button" class="copy-btn" id="copy-cite">Copy citation</button>
+  </div>
+  <p class="fineprint">Questions, or a quote: Matthew J. Monnot, <a href="mailto:matt@vocentive.com">matt@vocentive.com</a>.</p>
+</section>
+
+<section id="evidence" aria-labelledby="s1">
+  <p class="section-label" id="s1">1 &middot; Of the five broad traits, conscientiousness was where the applicant link reversed</p>
+  <p class="section-intro">For each broad personality trait, the paper pooled the correlation between that trait and a general ability score, separately for job applicants and for employees tested for research. A correlation near zero means the two scores were unrelated; a negative one means higher ability went with lower self-ratings. Pick a trait.</p>
+  <div class="calc">
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Choose a personality trait" id="bf-seg">
+        <button type="button" data-k="c" aria-pressed="true">Conscientiousness</button>
+        <button type="button" data-k="n" aria-pressed="false">Neuroticism</button>
+        <button type="button" data-k="o" aria-pressed="false">Openness</button>
+        <button type="button" data-k="e" aria-pressed="false">Extraversion</button>
+        <button type="button" data-k="a" aria-pressed="false">Agreeableness</button>
+      </div>
+      <figure class="chart">
+        <svg id="bf-chart" viewBox="0 0 440 300" role="img" aria-labelledby="bf-title bf-desc">
+          <title id="bf-title">Applicant minus employee difference in the correlation with ability, for each of the five broad traits</title>
+          <desc id="bf-desc">Five rows, one per broad trait. Each dot is the applicant mean minus the employee mean from Table 1 of the preprint, with a 95% confidence interval line. Only the conscientiousness interval excludes zero. The selected trait is drawn at full strength.</desc>
+        </svg>
+        <p class="control-note" id="bf-k"></p>
+        <figcaption>Values from Table 1 and page 17 of the preprint. Lines are 95% confidence intervals. Each mean is weighted by sample size. A filled dot marks an interval that excludes zero. Pick a trait in the chart or with the buttons.</figcaption>
+      </figure>
+    </div>
+    <div class="results" aria-live="polite">
+      <div class="stat">
+        <span class="stat-value red" id="bf-value">&nbsp;</span>
+        <span class="stat-label" id="bf-label">&nbsp;</span>
+        <span class="stat-sub" id="bf-sub">&nbsp;</span>
+      </div>
+      <p class="reading" id="bf-reading">&nbsp;</p>
+      <div class="kicker-bar" id="bf-bar">
+        <p class="kicker-main" id="bf-main">&nbsp;</p>
+        <p class="kicker-sub" id="bf-barsub">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+  <p>The robustness checks reported here kept the applicant conscientiousness result negative, though not each one was significant. A random-effects model gave &minus;.10 (95% CI [&minus;.19, &minus;.02]) for applicants and +.03 ([&minus;.01, .06]) for employees. Dropping any one applicant sample left the applicant mean between &minus;.14 and &minus;.04. A test for small-study bias was not significant (<em>p</em> = .41). A meta-regression adjusting for three study-level covariates in 59 samples gave a negative coefficient that was not significant (&minus;.16, <em>p</em> = .07). Compared with all research samples pooled, including students and community samples, the conscientiousness difference was &minus;.07 and not significant (<em>p</em> = .063). Applicant settings varied widely: the 80% credibility interval for conscientiousness ran from &minus;.28 to +.13.</p>
+  <figure class="paper-figure">
+    <img src="assets/figure1-big-five-by-context.png" alt="Figure 1 of the preprint: dot-and-interval plot of mean correlations with g for the five broad traits, each shown for five kinds of sample, with applicants highlighted in red." width="1239" height="917" loading="lazy">
+    <figcaption><strong>Figure 1. How to read it.</strong> Each group of five rows is one trait, and each row is one kind of sample. The red dot is the applicant estimate; the dark blue dot below it is the employee estimate. Lines are 95% confidence intervals, and the dashed vertical line is zero. For conscientiousness, the red applicant dot sits left of zero while the employee dot sits right of it. For the other four traits, the applicant interval overlaps the employee interval.</figcaption>
+  </figure>
+  <figure class="paper-figure">
+    <img src="assets/figure2-conscientiousness-forest.png" alt="Figure 2 of the preprint: forest plot listing each of the 20 applicant samples and 71 incumbent samples each with its observed correlation between conscientiousness and ability plus a 95% confidence interval, with a diamond for each weighted mean." width="917" height="1479" loading="lazy">
+    <figcaption><strong>Figure 2. How to read it.</strong> Each row is one sample, labeled with its first author and sample size, plotted at its correlation. Larger squares are larger samples, and lines are 95% confidence intervals. Rows run from most negative to most positive within each group. The red diamond at the end of the applicant block is the weighted mean (&minus;.07); the blue diamond at the end of the employee block is +.03.</figcaption>
   </figure>
 </section>
 
 <section aria-labelledby="s2">
-  <p class="section-label" id="s2">2 &middot; Run it on your own funnel</p>
-  <p class="section-intro">The model below is fit to the published evidence
-  (applicant&ndash;incumbent mean shift <em>d</em> = .45, Birkeland et&nbsp;al., 2006;
-  the applicant correlations above; operational validities from Sackett et&nbsp;al.,
-  2022). You choose the context, how many applicants fake, how selective the hire is,
-  and what the job pays. Every output is read from precomputed simulation runs of
-  400,000-applicant pools &mdash; nothing is approximated in the browser.</p>
-
+  <p class="section-label" id="s2">2 &middot; The applicant reversal was concentrated outside the U.S.</p>
+  <p class="section-intro">The paper then split the conscientiousness comparison by region. Of the study features it could code, only country was a significant moderator. Pick a region.</p>
   <div class="calc">
     <div class="controls">
-      <fieldset>
-        <legend>Applicant pool context</legend>
-        <label><input type="radio" name="ctx" value="Pooled" checked> Pooled applicant evidence (<em>r</em> = &minus;.07)</label>
-        <label><input type="radio" name="ctx" value="US"> US applicant pools (<em>r</em> = +.01)</label>
-        <label><input type="radio" name="ctx" value="Non-US"> Non-US applicant pools (<em>r</em> = &minus;.27)</label>
-      </fieldset>
-
-      <div class="slider-row">
-        <label for="prev">Applicants who fake</label>
-        <input type="range" id="prev" min="20" max="50" step="5" value="30">
-        <output id="prev-out">30%</output>
+      <div class="seg" role="group" aria-label="Choose a region" id="rg-seg">
+        <button type="button" data-k="non" aria-pressed="true">Outside the U.S.</button>
+        <button type="button" data-k="us" aria-pressed="false">United States</button>
       </div>
-      <p class="control-note">The Griffith &amp; Converse (2011) synthesis concludes
-      30% &plusmn; 10%; within-person estimates run 30&ndash;50% (Griffith et&nbsp;al.,
-      2007; Donovan et&nbsp;al., 2014). The manuscript's main simulations use 40%.</p>
-
-      <div class="slider-row">
-        <label for="sr">Selection ratio (share of applicants hired)</label>
-        <input type="range" id="sr" min="5" max="50" step="5" value="10">
-        <output id="sr-out">10%</output>
-      </div>
-
-      <div class="num-row">
-        <label for="hires">Hires per year</label>
-        <input type="number" id="hires" min="1" max="100000" step="1" value="50" inputmode="numeric">
-      </div>
-      <div class="num-row">
-        <label for="salary">Average salary of the role</label>
-        <input type="number" id="salary" min="20000" max="1000000" step="5000" value="70000" inputmode="numeric">
-      </div>
+      <figure class="chart">
+        <svg id="rg-chart" viewBox="0 0 440 250" role="img" aria-labelledby="rg-title rg-desc">
+          <title id="rg-title">Mean conscientiousness and ability correlation for applicants and employees, by region</title>
+          <desc id="rg-desc">A slopegraph. Each line joins a region's employee mean on the left to its applicant mean on the right, from Table 3, Panel A, of the preprint. Outside the U.S. the line falls from .05 to &minus;.27. In U.S. studies it stays at .01. Intervals for the regional means are not reported; the results panel gives the interval for the difference.</desc>
+        </svg>
+        <p class="control-note" id="rg-k"></p>
+        <figcaption>Values from Table 3 (Panel A) and page 19 of the preprint. The table reports intervals for the differences only, so the dots carry no interval lines.</figcaption>
+      </figure>
     </div>
-
-    <div class="results">
+    <div class="results" aria-live="polite">
       <div class="stat">
-        <span class="stat-value red" id="out-changed">&nbsp;</span>
-        <span class="stat-label" id="out-changed-n">&nbsp;</span>
-        <span class="stat-sub">of top-down hiring decisions differ from what honest
-        responding would have produced</span>
+        <span class="stat-value red" id="rg-value">&nbsp;</span>
+        <span class="stat-label" id="rg-label">&nbsp;</span>
+        <span class="stat-sub" id="rg-sub">&nbsp;</span>
       </div>
-      <div class="stat">
-        <span class="stat-value red" id="out-perf">&nbsp;</span>
-        <span class="stat-label">mean hire performance lost vs. honest responding</span>
-        <span class="stat-sub" id="out-dollars">&nbsp;</span>
+      <p class="reading" id="rg-reading">&nbsp;</p>
+      <div class="kicker-bar" id="rg-bar">
+        <p class="kicker-main" id="rg-main">&nbsp;</p>
+        <p class="kicker-sub" id="rg-barsub">&nbsp;</p>
       </div>
-      <div class="stat">
-        <span class="stat-value red" id="out-swap">&nbsp;</span>
-        <span class="stat-label" id="out-swap-n">&nbsp;</span>
-        <span class="stat-sub">performance gap between each faked-in hire and the
-        honest applicant they displaced</span>
-      </div>
-      <div class="kicker-bar">
-        <p class="kicker-main">The adverse-impact audit sees nothing.</p>
-        <p class="kicker-sub" id="out-ai">&nbsp;</p>
-      </div>
-      <p class="dollar-note">Dollar values are illustrative, using the convention that
-      the standard deviation of job performance in dollars equals 40% of salary
-      (Schmidt &amp; Hunter, 1983). Simulation outputs, not forecasts for any
-      specific organization.</p>
     </div>
   </div>
+  <p>The non-U.S. applicant samples came mostly from UK settings and from Australian and New Zealand settings, using British occupational inventories. Region was also tied to instrument family and national selection practice in these data, so the paper does not attribute the difference to any one of them. Within applicant samples, published and unpublished sources gave &minus;.09 and &minus;.07 (<em>p</em> = .76), and studies through 2005 and after gave &minus;.05 and &minus;.11 (<em>p</em> = .43). The paper also appended six large operational applicant datasets. One of the six, a French applicant sample of roughly 20,000, is in the database but is classified as not measuring general mental ability; the remaining five do not appear in the database. With them, the applicant estimate moved from &minus;.07 to +.06 and the U.S. estimate from +.01 to +.07.</p>
 </section>
 
 <section aria-labelledby="s3">
-  <p class="section-label" id="s3">3 &middot; What to do about it</p>
+  <p class="section-label" id="s3">3 &middot; In the Study 1 simulation, faking changed many hiring decisions</p>
+  <p class="section-intro">The simulation built pools of 200,000 applicants and let 40% of them fake. How much each faker inflated was fitted so that the pool matched two empirical targets: the applicant rise in conscientiousness scores, a published estimate, and this study&rsquo;s applicant correlation for the region. Applicants were hired top down on an equal-weight composite of ability and conscientiousness, and the outcomes were compared with honest responding in that pool. Pick a condition.</p>
+  <div id="guess-hires"></div>
+  <div id="hires-wrap" class="guess-target">
+  <div class="calc calc-wide">
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Choose a simulated condition" id="sm-seg">
+        <button type="button" data-k="us" aria-pressed="true">U.S.</button>
+        <button type="button" data-k="pooled" aria-pressed="false">All applicant samples</button>
+        <button type="button" data-k="non" aria-pressed="false">Outside the U.S.</button>
+      </div>
+      <figure class="chart">
+        <div class="multiples" id="sm-multiples">
+          <div class="mp" data-k="us" role="button" tabindex="0" aria-pressed="true" aria-label="Show the U.S. panel">
+            <svg id="sm-us" viewBox="0 0 230 200" role="img" aria-labelledby="sm-us-title sm-us-desc">
+              <title id="sm-us-title">U.S.: share of hiring decisions changed, by share of applicants hired</title>
+              <desc id="sm-us-desc">Lines show the simulated share of hiring decisions that differ from the honest-answer result as the share of applicants hired rises from 5% to 50%, for 30% to 50% of applicants faking. The heavy line is 40% faking. Dots mark the two settings tabulated in Table 4 of the preprint.</desc>
+            </svg>
+          </div>
+          <div class="mp" data-k="pooled" role="button" tabindex="0" aria-pressed="false" aria-label="Show the All applicant samples panel">
+            <svg id="sm-pooled" viewBox="0 0 230 200" role="img" aria-labelledby="sm-pooled-title sm-pooled-desc">
+              <title id="sm-pooled-title">All applicant samples: share of hiring decisions changed, by share of applicants hired</title>
+              <desc id="sm-pooled-desc">Lines show the simulated share of hiring decisions that differ from the honest-answer result as the share of applicants hired rises from 5% to 50%, for 30% to 50% of applicants faking. The heavy line is 40% faking. Dots mark the two settings tabulated in Table 4 of the preprint.</desc>
+            </svg>
+          </div>
+          <div class="mp" data-k="non" role="button" tabindex="0" aria-pressed="false" aria-label="Show the Outside the U.S. panel">
+            <svg id="sm-non" viewBox="0 0 230 200" role="img" aria-labelledby="sm-non-title sm-non-desc">
+              <title id="sm-non-title">Outside the U.S.: share of hiring decisions changed, by share of applicants hired</title>
+              <desc id="sm-non-desc">Lines show the simulated share of hiring decisions that differ from the honest-answer result as the share of applicants hired rises from 5% to 50%, for 30% to 50% of applicants faking. The heavy line is 40% faking. Dots mark the two settings tabulated in Table 4 of the preprint.</desc>
+            </svg>
+          </div>
+        </div>
+        <p class="control-note">Across: the share of applicants hired. Up: the share of hiring decisions that change. Each line is one share of applicants faking.</p>
+        <figcaption>Lines are read from precomputed runs of the paper&rsquo;s simulation model, with 400,000 simulated applicants per setting. The heavy line is 40% of applicants faking, the paper&rsquo;s main setting, and the dots mark the two settings in Table 4. With fewer fakers the model needs more inflation per faker to match the data, so the 30% line sits above the 50% line. The panel below the chart gives the Table 4 values, from pools of 200,000. For Table 4, Monte Carlo standard errors were at most 0.06 percentage points for hires changed and 0.19 points for performance loss.</figcaption>
+      </figure>
+    </div>
+    <div class="results" aria-live="polite">
+      <div class="stat">
+        <span class="stat-value red" id="sm-value">&nbsp;</span>
+        <span class="stat-label" id="sm-label">&nbsp;</span>
+        <span class="stat-sub" id="sm-sub">&nbsp;</span>
+      </div>
+      <p class="reading" id="sm-reading">&nbsp;</p>
+      <div class="kicker-bar" id="sm-bar">
+        <p class="kicker-main" id="sm-main">&nbsp;</p>
+        <p class="kicker-sub" id="sm-barsub">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <figure class="paper-figure">
+    <img src="assets/figure3-selection-outcomes.png" alt="Figure 3 of the preprint: left, expected performance of hires by selection ratio for four correlation inputs; center, adverse-impact ratio by selection ratio with the four-fifths line; right, bars for percentage of hires changed and performance loss in six simulated conditions." width="1239" height="394" loading="lazy">
+    <figcaption><strong>Figure 3. How to read it.</strong> The left and center panels come from the closed-form model, which holds validities fixed: each line is one correlation input, and the horizontal axis is the share of applicants hired. Left, expected performance of hires in SD units; center, the adverse-impact ratio, with the four-fifths line at .80. The right panel comes from the simulation: dark bars are the percentage of hires changed by faking, light bars the percentage of hire performance lost.</figcaption>
+  </figure>
+  <figure class="paper-figure">
+    <img src="assets/figure4-mechanism.png" alt="Figure 4 of the preprint: three panels for the non-US condition at a .10 selection ratio. A, conscientiousness inflation of fakers falling as ability rises; B, honest against as-scored composites with hiring cutoffs; C, bars for mean true performance of hired and displaced groups." width="1239" height="413" loading="lazy">
+    <figcaption><strong>Figure 4. How to read it.</strong> This shows one simulated condition, outside the U.S. at a .10 selection ratio. Panel A: each red dot is a faker, and the line shows inflation falling as ability rises. Panel B: dots above the horizontal cutoff and left of the vertical one were hired only because of faking; 31% of hires changed. Panel C: bar heights are mean true performance; the faked-in group (0.19 SD) sits below the displaced group (0.51 SD). The dollar axis is illustrative, at 40% of a $70,000 salary.</figcaption>
+  </figure>
+</section>
+
+<section aria-labelledby="s4">
+  <p class="section-label" id="s4">4 &middot; In Study 2, faked-in hires were lower in honesty-humility</p>
+  <p class="section-intro">Study 2 let traits decide who fakes, using published correlations between traits and faking. The main faking-input set came from real applicants; Study 2 also used laboratory anchor sets. It compared two accounts of what fakers inflate: only the job-relevant and confidence-toned scales, or every scale in proportion to how strongly it tracks social desirability. Every-scale inflation fit the database results worse in each of the three regional conditions. The panel shows the primary specification. Pick a condition.</p>
+  <div class="calc calc-wide">
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Choose a simulated condition" id="ig-seg">
+        <button type="button" data-k="us" aria-pressed="true">U.S.</button>
+        <button type="button" data-k="pooled" aria-pressed="false">All applicant samples</button>
+        <button type="button" data-k="non" aria-pressed="false">Outside the U.S.</button>
+      </div>
+      <figure class="chart">
+        <div class="multiples" id="ig-multiples">
+          <div class="mp" data-k="us" role="button" tabindex="0" aria-pressed="true" aria-label="Show the U.S. panel">
+            <svg id="ig-us" viewBox="0 0 230 210" role="img" aria-labelledby="ig-us-title ig-us-desc">
+              <title id="ig-us-title">U.S.: honesty-humility gap between faked-in hires and the applicants they displaced</title>
+              <desc id="ig-us-desc">Bars show the gaps from Table 6 of the preprint under two sources of integrity correlations, at selection ratios of .10 and .30. Bars below zero mean the faked-in hires were lower.</desc>
+            </svg>
+          </div>
+          <div class="mp" data-k="pooled" role="button" tabindex="0" aria-pressed="false" aria-label="Show the All applicant samples panel">
+            <svg id="ig-pooled" viewBox="0 0 230 210" role="img" aria-labelledby="ig-pooled-title ig-pooled-desc">
+              <title id="ig-pooled-title">All applicant samples: honesty-humility gap between faked-in hires and the applicants they displaced</title>
+              <desc id="ig-pooled-desc">Bars show the gaps from Table 6 of the preprint under two sources of integrity correlations, at selection ratios of .10 and .30. Bars below zero mean the faked-in hires were lower.</desc>
+            </svg>
+          </div>
+          <div class="mp" data-k="non" role="button" tabindex="0" aria-pressed="false" aria-label="Show the Outside the U.S. panel">
+            <svg id="ig-non" viewBox="0 0 230 210" role="img" aria-labelledby="ig-non-title ig-non-desc">
+              <title id="ig-non-title">Outside the U.S.: honesty-humility gap between faked-in hires and the applicants they displaced</title>
+              <desc id="ig-non-desc">Bars show the gaps from Table 6 of the preprint under two sources of integrity correlations, at selection ratios of .10 and .30. Bars below zero mean the faked-in hires were lower.</desc>
+            </svg>
+          </div>
+        </div>
+        <figcaption>Values from Table 6 of the preprint, in pool SD units, 200,000 simulated applicants per condition. HEXACO bars use honesty-humility correlations from Howard and Van Zandt (2020); overt-test bars use integrity-test correlations from Sackett and Wanek (1996).</figcaption>
+      </figure>
+    </div>
+    <div class="results" aria-live="polite">
+      <div class="stat">
+        <span class="stat-value red" id="ig-value">&nbsp;</span>
+        <span class="stat-label" id="ig-label">&nbsp;</span>
+        <span class="stat-sub" id="ig-sub">&nbsp;</span>
+      </div>
+      <p class="reading" id="ig-reading">&nbsp;</p>
+      <div class="kicker-bar" id="ig-bar">
+        <p class="kicker-main" id="ig-main">&nbsp;</p>
+        <p class="kicker-sub" id="ig-barsub">&nbsp;</p>
+      </div>
+    </div>
+  </div>
+  <p>Fit was measured as a weighted distance between simulated and empirical values, where lower is better. Every-scale inflation scored 13.8 to 15.0 (U.S.), 25.5 to 27.4 (all applicant samples) and 67.7 to 73.2 (outside the U.S.), against 3.8 to 8.2 for job-relevant inflation. Under random faking in those pools, faked-in hires showed no honesty-humility deficit: their mean ranged from 0.00 to +0.28 SD (HEXACO). The paper adds a limit. Inflation that never lowers a score could push the applicant correlation no lower than about &minus;.26, so the non-U.S. value of &minus;.27 must partly reflect who applies.</p>
+</section>
+
+<section aria-labelledby="s5">
+  <p class="section-label" id="s5">5 &middot; Choosing a correlation for selection models</p>
+  <p class="section-intro">Composite validity and adverse-impact projections take the ability and conscientiousness correlation as an input, so the value chosen changes the answer.</p>
+  <h2>The paper recommends a correlation matched to the setting being modeled: about +.01 for U.S. high-stakes selection and +.03 for research testing.</h2>
+  <p class="section-intro">For the non-U.S. settings in this database, which are dominated by UK and Australian or New Zealand occupational inventories, it gives &minus;.27. A single pooled applicant value would describe neither region well.</p>
+  <p class="fineprint">How to read this. These are observed mean correlations, the inputs used in the paper&rsquo;s selection models. In the closed-form model at a .10 selection ratio, moving from +.03 to &minus;.27 raised expected hire performance from 0.61 to 0.73 SD and lowered the adverse-impact ratio from 0.38 to 0.31. The simulation adds that the faking behind a negative value also lowers how well conscientiousness scores predict performance, so the realized hire performance fell. The database ends in 2014, before widespread unproctored internet testing.</p>
+</section>
+
+<section aria-labelledby="s6">
+  <p class="section-label" id="s6">6 &middot; What the study found, in order</p>
   <ul class="todo">
-    <li><strong>Stop porting research-setting numbers into hiring decisions.</strong>
-    Predictor intercorrelations are setting-specific. A validity model built on
-    incumbent or research-sample correlations does not describe an applicant pool
-    under real stakes.</li>
-    <li><strong>Use countermeasures even when your psychometrics look clean.</strong>
-    In these simulations, reliabilities, means, and selection-rate statistics stay
-    nearly undisturbed while 1 in 5 or more hiring decisions change. Verification
-    warnings and forced-choice formats are warranted on prevention grounds, not
-    detection grounds.</li>
-    <li><strong>Measure integrity directly.</strong> Inferring it from the personality
-    composite is exactly the channel faking corrupts. In every specification that fit
-    the published targets, applicants who gained seats through faking were lower in
-    integrity than those they displaced &mdash; by 0.2&ndash;0.8 <em>SD</em> depending
-    on the integrity measure used as anchor.</li>
-    <li><strong>Do not let a passed bias audit stand in for assessment health.</strong>
-    Selection-rate impact ratios (the statistic behind NYC Local Law 144 audits) are
-    essentially undisturbed by faking in these simulations, while the composition of
-    who gets hired degrades.</li>
+    <li><strong>Direction (Research Question 1).</strong> Conscientiousness and ability: &minus;.07 in 20 applicant samples, .03 in 71 employee samples; difference &minus;.11, 95% CI [&minus;.18, &minus;.03], <em>p</em> = .005. The paper reads this as support for compensatory faking over faking as a skill.</li>
+    <li><strong>Trait specificity (Research Question 2).</strong> Applicant minus employee differences for the other four traits were small and not significant (all |&Delta;| &le; .02, <em>p</em> &ge; .29); for openness, &Delta; = .00, 95% CI [&minus;.04, .04].</li>
+    <li><strong>Narrower traits (Research Question 3, exploratory).</strong> Ambition shifted negatively (&Delta; = &minus;.16, 95% CI [&minus;.27, &minus;.05]). Self-esteem and trust shifted positively (both &Delta; = +.17, <em>p</em> &lt; .001). Nine narrower facets and factors showed no significant shift (all |&Delta;| &le; .05). These rest on 5 to 9 applicant samples each.</li>
+    <li><strong>Moderators (Research Question 4, exploratory).</strong> Country was the one significant moderator: &Delta; = &minus;.33 outside the U.S. and &minus;.01 in U.S. studies.</li>
+    <li><strong>Study 1 simulation.</strong> At 40% faking, 22.5% to 35.8% of top-down hires changed and hire performance fell 8.4% to 18.7%. Outside the U.S., the adverse-impact ratio rose from 0.37 to 0.52 at a .10 selection ratio; in the U.S. condition it moved from 0.40 to 0.39.</li>
+    <li><strong>Study 2 simulation.</strong> Every-scale inflation fit worse than job-relevant inflation in each of the three regional conditions. Faked-in hires averaged 0.16 to 0.45 SD lower honesty-humility than the applicants they displaced under the linear inflation form (0.29 to 0.70 SD with overt integrity-test correlations). Under the ceiling form the gaps were 0.33 to 0.49 SD (HEXACO) and 0.52 to 0.75 SD (overt). Adverse-impact ratios moved by 0.03 or less in Table 6.</li>
+    <li><strong>A failed prediction.</strong> The fitted model implied a negative applicant shift for emotional stability in the pooled and non-U.S. conditions, which fell outside the interval Study 1 observed. The paper reports this as a boundary on the model.</li>
   </ul>
-  <p class="section-intro" style="margin-top:20px">For concrete steps &mdash; what to do
-  this quarter and how to structure a selection system around this evidence &mdash;
-  see the <a href="playbook.html">playbook</a>.</p>
+</section>
+
+<section id="specialists" aria-labelledby="s-spec">
+  <p class="section-label" id="s-spec">For specialists</p>
+  <p class="section-intro">The study design and the main reported estimates in one place. Sources are the preprint&rsquo;s Method and Results sections and its Tables 1 to 6 and Figures 1 to 4.</p>
+  <table class="spec">
+    <tbody>
+      <tr><th scope="row">Database</th><td>Stanek and Ones (2023c) Personality Traits and Cognitive Abilities Relations Database: 60,690 correlations from primary studies, 1925 to 2014, more than 50 countries. Included: cognitive construct g (CHC mapping) and a global Big Five factor, 3,618 correlations. Excluded 289 correlations (148 sample &times; trait effects) with unclassifiable sample type. Dependent correlations composited: 2,158 independent sample &times; trait correlations.</td></tr>
+      <tr><th scope="row">Stakes coding</th><td>High stakes: applicant samples (26 designations, 117 rows, all verified, none reclassified; one competitive admission sample). Low stakes: incumbents (the focal comparison) plus student and community samples. Military kept separate for sensitivity.</td></tr>
+      <tr><th scope="row">Method</th><td>Bare-bones psychometric meta-analysis, sample-size weighted (Schmidt &amp; Hunter, 2015); SD<sub>res</sub> and 80% credibility intervals; subgroup <em>z</em> contrasts. WLS meta-regression with study-level covariates, robust SEs. Robustness: DerSimonian-Laird random effects; leave-one-out; Egger; PET-PEESE; reliability grid. Corrections at <em>r</em><sub>xx</sub> = .80 (personality) and .85 (GMA); no range-restriction correction. Not preregistered; RQ1 and RQ2 specified before moderator and simulation analyses.</td></tr>
+      <tr><th scope="row">RQ1 and RQ2</th><td>Table 1. Conscientiousness: applicants &minus;.07 [&minus;.14, &minus;.00], <em>k</em> = 20, <em>N</em> = 20,757; incumbents .03 [.01, .06], <em>k</em> = 71, <em>N</em> = 18,242; &Delta; = &minus;.11 [&minus;.18, &minus;.03], <em>z</em> = &minus;2.78, <em>p</em> = .005. Neuroticism &Delta; = &minus;.01 (<em>p</em> = .540); Extraversion &minus;.01 (.540); Openness .00 [&minus;.04, .04] (.881); Agreeableness +.02 (.294). Applicant SD<sub>res</sub> = .16 for C, 80% CrI [&minus;.28, +.13]. Against pooled low stakes: C &Delta; = &minus;.07, <em>p</em> = .063.</td></tr>
+      <tr><th scope="row">Robustness</th><td>Random effects &minus;.10 [&minus;.19, &minus;.02] vs +.03 [&minus;.01, .06]; meta-regression (59 samples) <em>b</em> = &minus;.16, <em>p</em> = .07; unweighted <em>b</em> = &minus;.10, <em>p</em> = .27; leave-one-out &minus;.14 to &minus;.04; Egger <em>p</em> = .41; PET and PEESE &minus;.04 and &minus;.08; corrected values varied by less than .02 over the reliability grid.</td></tr>
+      <tr><th scope="row">RQ3</th><td>Table 2, 12 constructs with at least 5 applicant and 5 incumbent samples. Self-Esteem &Delta; = +.17 [.12, .22]; Trust +.17 [.08, .26]; Ambition &minus;.16 [&minus;.27, &minus;.05], <em>p</em> = .005; remaining nine |&Delta;| &le; .05, smallest <em>p</em> = .079 (Sociability). Exploratory.</td></tr>
+      <tr><th scope="row">RQ4</th><td>Table 3, Panel A. Non-US: applicants &minus;.27 (<em>k</em> = 10; <em>N</em> = 6,050), incumbents .05 (20; 8,577); &Delta; = &minus;.33 [&minus;.42, &minus;.24], <em>z</em> = &minus;7.08. US: .01 (10; 14,707) vs .01 (51; 9,664); &Delta; = &minus;.01 [&minus;.07, .06]; US applicant samples &minus;.15 to +.14. One UK inventory family 78% of non-US applicant <em>N</em>. US Agreeableness &Delta; = +.07 [.04, .11]. Publication type <em>p</em> = .76; era <em>p</em> = .43. With six external operational datasets appended (Table S8): pooled C &minus;.07 to +.06, US +.01 to +.07, non-US &minus;.27 to +.02.</td></tr>
+      <tr><th scope="row">Analytic model</th><td>Equal-weight GMA plus C composite, top down. Operational validities .31 and .19 (Sackett et al., 2022); Black-White <em>d</em> 0.79 and &minus;0.07; minority proportion 1/6. Corrected &rho; +.01 to &minus;.09: <em>R</em> .362 to .379; composite <em>d</em> 0.507 to 0.534. At SR .10, inputs +.03, +.01, &minus;.07, &minus;.27: hire performance 0.61, 0.62, 0.65, 0.73 SD; AIR 0.38, 0.38, 0.36, 0.31. Subgroup inputs are US-derived.</td></tr>
+      <tr><th scope="row">Study 1 simulation</th><td>Table 4. <em>n</em> = 200,000 per condition; 40% random fakers; mean inflation and compensatory slope solved to <em>d</em> = 0.45 and the context correlation; noise &sigma; = 0.50 (0.25 to 1.00 in sensitivity). Hires changed 22.5% to 35.8%; loss 8.4% to 18.7%; AIR non-US 0.37 to 0.52 (SR .10), 0.54 to 0.66 (SR .30); pooled 0.39 to 0.44 and 0.53 to 0.56; US 0.40 to 0.39 and 0.53 to 0.52. Loss 12% to 33% at 30% prevalence, 7% to 15% at 50%; 20% prevalence implies 3.0 to 4.8 SD per-faker inflation. Over 25 independent pools, SEs were at most 0.06 points (hires changed), 0.19 points (loss) and 0.003 (AIR).</td></tr>
+      <tr><th scope="row">Study 2 model</th><td>Six latent traits; logistic faking function of g, C, honesty-humility with slopes solved to anchor point-biserials at 40% prevalence. Anchor sets (Table 5): field (&minus;.19, +.17, &minus;.04); field-conservative (&minus;.19, 0, 0; primary); laboratory (+.14, &minus;.15, +.21); a laboratory variant. Six WLS targets: C shift <em>d</em> = 0.45; ES shift 0.44; A shift 0.16; applicant C-GMA correlation; Self-Esteem shift +.17; SD ratio 0.86.</td></tr>
+      <tr><th scope="row">Study 2 results</th><td>Targeted distances 3.8 to 8.2 (each includes about 3.5 from the Agreeableness target); desirability-proportional 13.8 to 15.0, 25.5 to 27.4, 67.7 to 73.2. Laboratory set implied 39% to 48% performance loss in the non-US condition. Non-negative inflation floor about &minus;.26. Table 6 (linear form): hires changed 20.0% to 34.9%; loss 7.9% to 17.9%; H gap &minus;0.16 to &minus;0.45 (HEXACO), &minus;0.29 to &minus;0.70 (overt tests); AIR changes at most 0.03. Censored and freed-skill forms: US and pooled losses about 13% to 18%. ES-GMA falsification check failed in pooled (&minus;.101) and non-US (&minus;.279) conditions; observed +.013 [&minus;.029, .055].</td></tr>
+      <tr><th scope="row">Limits</th><td>Stakes coded from sample type and not randomly assigned. Applicant <em>k</em> modest (11 to 21 per trait; 5 to 10 per region or compound). Database ends 2014. Region confounded with instrument family and selection practice. No forced-choice instruments. Constant artifact values. Trait-faking anchors rest on two primary studies (<em>n</em> = 128 field; <em>n</em> = 189 laboratory). Targeted inflation leaves the Agreeableness shift at zero by construction, so only its trait-general rival was exposed to falsification on that target.</td></tr>
+      <tr><th scope="row">Materials</th><td>Python 3.14. The paper states that code and aggregate tables are available from the author until a public repository is posted; the database is not redistributed. No respondent-level data are hosted on this page.</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <details class="model-notes">
-  <summary>Model inputs and assumptions</summary>
+  <summary>What this site does and does not show</summary>
   <ul>
-    <li>Operational validities: cognitive ability .31, Conscientiousness .19
-    (Sackett, Zhang, Berry, &amp; Lievens, 2022, Table 4). Equal-weight standardized
-    composite, top-down selection.</li>
-    <li>Applicant&ndash;incumbent Conscientiousness mean shift: <em>d</em> = .45
-    (Birkeland et&nbsp;al., 2006). Faking prevalence range: Griffith, Chmielowski,
-    &amp; Yoshita (2007); Donovan, Dwight, &amp; Schneider (2014); Griffith &amp;
-    Converse (2011).</li>
-    <li>For each setting of the controls, the faking parameters (mean inflation and
-    its ability slope) are jointly re-solved so the simulated pool reproduces the
-    mean shift and the context's applicant correlation. Consequences are measured
-    against the no-faking counterfactual on the same simulated pool.</li>
-    <li>Subgroup inputs for the adverse-impact ratio: <em>d</em> = .79 (ability;
-    Roth et&nbsp;al., 2011, via Sackett et&nbsp;al., 2022) and &minus;.07
-    (Conscientiousness; Dahlke &amp; Sackett, 2017), minority pool share 1/6,
-    common cutoff.</li>
-    <li>Idiosyncratic faking noise &sigma; = .50 (the manuscript reports
-    sensitivity runs at .25 and 1.00).</li>
+    <li>No respondent-level data are hosted here. Every estimate and interval in the evidence sections is a published aggregate from the preprint. Nothing is estimated or simulated in the browser.</li>
+    <li>The hiring calculator reads precomputed runs of the paper&rsquo;s simulation model from a data file (grid.json). It covers more settings than the paper tabulates. At the paper&rsquo;s own settings it differs slightly from Table 4 (by up to 1.6 points for performance loss). The paper&rsquo;s tables use pools of 200,000 simulated applicants and the calculator uses 400,000.</li>
+    <li>No countermeasure is evaluated. The paper names countermeasures but does not test them.</li>
   </ul>
 </details>
 
-
 <section aria-labelledby="tools-used">
   <p class="section-label" id="tools-used">Tools used</p>
-  <p>Python (pandas, NumPy, SciPy, statsmodels, matplotlib); Alteryx Designer Cloud; HTML, CSS, and JavaScript.</p>
+  <p>Analyses and simulations: Python 3.14, as reported in the preprint.</p>
 </section>
 
 <footer>
-  <p>Monnot, M. J. (2026). <em>Compensatory faking and the relationship between
-  cognitive ability and personality in personnel selection: Meta-analytic evidence
-  and trait-driven simulations</em>. SSRN preprint. <a href="https://doi.org/10.2139/ssrn.7611561">https://doi.org/10.2139/ssrn.7611561</a>
-  &middot; <a href="https://mjmonnot.github.io/assets/pdfs/Monnot_2026_Compensatory_Faking_SSRN_7611561.pdf">PDF</a></p>
-  <p><a href="https://mjmonnot.github.io/">mjmonnot.github.io</a> &middot;
-  Contact: matt@vocentive.com</p>
+  <p>Monnot, M. J. (2026). <em>Compensatory faking and the relationship between cognitive ability and personality in personnel selection: Meta-analytic evidence and trait-driven simulations</em> [Preprint]. SSRN. <a href="https://doi.org/10.2139/ssrn.7611561">https://doi.org/10.2139/ssrn.7611561</a> &middot; <a href="https://mjmonnot.github.io/assets/pdfs/Monnot_2026_Compensatory_Faking_SSRN_7611561.pdf">PDF</a></p>
+  <p><a href="https://mjmonnot.github.io/">mjmonnot.github.io</a> &middot; Contact: matt@vocentive.com</p>
 </footer>
 
 </main>
-<script src="app.js"></script>
+<script src="assets/companion.js"></script>
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function el(n, a, t) { var e = document.createElementNS(NS, n); for (var k in a) { if (n === "text" && k === "fill") e.setAttribute("style", "fill:" + a[k]); else e.setAttribute(k, a[k]); } if (t != null) e.textContent = t; return e; }
+  function clear(svg) { Array.prototype.slice.call(svg.childNodes).forEach(function (n) { if (n.nodeName !== "title" && n.nodeName !== "desc") svg.removeChild(n); }); }
+  function fmt(v, d) { var a = Math.abs(v).toFixed(d == null ? 2 : d); if (a.charAt(0) === "0" && d !== 0 && Math.abs(v) < 1) a = a.slice(1); return (v < 0 ? "\u2212" : (v > 0 && d === -1 ? "+" : "")) + a; }
+  function sgn(v) { return (v < 0 ? "\u2212" : "+") + Math.abs(v).toFixed(2); }
+  function seg(id, render) {
+    var bs = document.querySelectorAll("#" + id + " button");
+    Array.prototype.forEach.call(bs, function (b) {
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(bs, function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+        render(b.getAttribute("data-k"));
+      });
+    });
+  }
+  function fill(prefix, o) {
+    var v = document.getElementById(prefix + "-value");
+    v.textContent = o.value; v.className = "stat-value " + (o.muted ? "ink" : "red");
+    document.getElementById(prefix + "-label").innerHTML = o.label;
+    document.getElementById(prefix + "-sub").innerHTML = o.sub;
+    document.getElementById(prefix + "-reading").innerHTML = o.reading;
+    document.getElementById(prefix + "-bar").className = "kicker-bar" + (o.muted ? " muted" : "");
+    document.getElementById(prefix + "-main").innerHTML = o.main;
+    document.getElementById(prefix + "-barsub").innerHTML = o.barsub;
+  }
+  var RED = "#c0392b", GREY = "#9aa3ad", BLUE = "#4a6a8a";
+  function axis(svg, x, ticks, y1, y2, ty, d) {
+    ticks.forEach(function (t) {
+      svg.appendChild(el("line", { x1: x(t), x2: x(t), y1: y1, y2: y2, "class": t === 0 ? "zero" : "grid" }));
+      svg.appendChild(el("text", { x: x(t), y: ty, "text-anchor": "middle" }, t === 0 ? "0" : fmt(t, d)));
+    });
+  }
+  function dotRows(svg, rows, x, top, step, L) {
+    rows.forEach(function (r, i) {
+      var y = top + i * step, c = r.c;
+      svg.appendChild(el("text", { x: 8, y: y + 5, "class": "lbl" }, r.n));
+      if (r.v == null) { svg.appendChild(el("text", { x: L + 4, y: y + 5, fill: "#5b6570" }, "not reported")); return; }
+      if (r.ci) svg.appendChild(el("line", { x1: x(r.ci[0]), x2: x(r.ci[1]), y1: y, y2: y, stroke: c, "stroke-width": r.hl ? 4 : 2 }));
+      svg.appendChild(el("circle", { cx: x(r.v), cy: y, r: r.hl ? 8 : 6, fill: r.sig ? c : "#fff", stroke: c, "stroke-width": 2 }));
+      var tx = r.ci ? x(r.ci[1]) + 8 : x(r.v) + 12;
+      svg.appendChild(el("text", { x: tx, y: y + 5 }, r.t));
+    });
+  }
+
+  function axis0(svg, x, ticks, y1, y2, ty, d) {
+    ticks.forEach(function (t) {
+      svg.appendChild(el("line", { x1: x(t), x2: x(t), y1: y1, y2: y2, "class": t === 0 ? "zero" : "grid" }));
+      svg.appendChild(el("text", { x: x(t), y: ty, "text-anchor": "middle" }, t === 0 ? "0" : (t < 0 ? "\u2212" : "") + Math.abs(t).toFixed(d)));
+    });
+  }
+  function dash(svg, x, v, y1, y2) { svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: y1, y2: y2, stroke: "#5b6570", "stroke-dasharray": "4 4", "stroke-width": 1.5 })); }
+
+  function syncSeg(id, k) { Array.prototype.forEach.call(document.querySelectorAll("#" + id + " button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === k ? "true" : "false"); }); }
+  function press(node, fn) {
+    node.addEventListener("click", fn);
+    node.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") { e.preventDefault(); fn(); } });
+  }
+  function asButton(node, label) { node.setAttribute("tabindex", "0"); node.setAttribute("role", "button"); node.setAttribute("aria-label", label); }
+  function addRef(svg, id, k) { var n = svg.querySelector('[data-k="' + k + '"]'); if (n && n.focus) n.focus(); }
+  var INK = "#1f2a36", MUTE = "#5b6570", LIGHT = "#9aa3ad";
+  var gridP = fetch("grid.json").then(function (r) { if (!r.ok) throw new Error("load"); return r.json(); });
+
+  /* 1 . Table 1: Big Five and GMA correlations, applicants and incumbents. */
+  var BF = {
+    c: { app: [-0.07, -0.14, -0.00, 20, "20,757"], inc: [0.03, 0.01, 0.06, 71, "18,242"], d: "\u2212.11", ci: "[\u2212.18, \u2212.03]", p: "<em>p</em> = .005", sig: true,
+      reading: "Among applicants, higher ability was associated with slightly lower self-rated conscientiousness (\u2212.07). Among employees tested for research, the link was slightly positive (.03). The difference is the one significant contrast of the five broad traits.",
+      main: "Reversed in applicants (Research Question 1).", barsub: "The paper reads this as support for compensatory faking: applicants with lower ability inflating self-ratings more." },
+    n: { app: [-0.11, -0.14, -0.08, 21, "22,775"], inc: [-0.10, -0.12, -0.07, 83, "20,634"], d: "\u2212.01", ci: "[\u2212.06, .03]", p: "<em>p</em> = .540", sig: false,
+      reading: "For neuroticism, the applicant estimate was \u2212.11 and the employee estimate \u2212.10. The difference was small and not significant (\u2212.01, 95% CI [\u2212.06, .03]).",
+      main: "No significant contrast (Research Question 2).", barsub: "Small and not significant, which fits a trait-specific shift." },
+    o: { app: [0.14, 0.12, 0.17, 13, "13,756"], inc: [0.15, 0.12, 0.18, 49, "10,634"], d: ".00", ci: "[\u2212.04, .04]", p: "<em>p</em> = .881", sig: false,
+      reading: "For openness, the applicant estimate was .14 and the employee estimate .15. The difference was small and not significant (.00, 95% CI [\u2212.04, .04]). The paper\u2019s targeted account predicted a shift for evaluative traits and none for openness.",
+      main: "No significant contrast (Research Question 2).", barsub: "The interval for the difference runs from \u2212.04 to .04." },
+    e: { app: [0.02, -0.02, 0.05, 15, "13,137"], inc: [0.03, 0.01, 0.05, 66, "16,822"], d: "\u2212.01", ci: "[\u2212.06, .03]", p: "<em>p</em> = .540", sig: false,
+      reading: "For extraversion, the applicant estimate was .02 and the employee estimate .03. The difference was small and not significant (\u2212.01, 95% CI [\u2212.06, .03]).",
+      main: "No significant contrast (Research Question 2).", barsub: "Small and not significant, which fits a trait-specific shift." },
+    a: { app: [0.02, -0.02, 0.05, 11, "18,848"], inc: [0.00, -0.03, 0.02, 64, "17,238"], d: "+.02", ci: "[\u2212.02, .07]", p: "<em>p</em> = .294", sig: false,
+      reading: "For agreeableness, the applicant estimate was .02 and the employee estimate .00. The difference was small and not significant (+.02, 95% CI [\u2212.02, .07]).",
+      main: "No significant contrast (Research Question 2).", barsub: "Small and not significant, which fits a trait-specific shift." }
+  };
+  var BFN = { c: "conscientiousness", n: "neuroticism", o: "openness", e: "extraversion", a: "agreeableness" };
+  var BFH = { c: "Conscientiousness", n: "Neuroticism", o: "Openness", e: "Extraversion", a: "Agreeableness" };
+  var BFO = ["c", "n", "o", "e", "a"];
+  var bfSvg = document.getElementById("bf-chart");
+  function r2(v) { return (v < 0 ? "−" : "") + Math.abs(v).toFixed(2).replace(/^0/, ""); }
+  function drawBf(k, focus) {
+    var d = BF[k]; clear(bfSvg);
+    var L = 140, Rt = 360, lo = -0.2, hi = 0.1, top = 56, step = 44;
+    var x = function (v) { return L + (Rt - L) * (v - lo) / (hi - lo); };
+    axis(bfSvg, x, [-0.2, -0.1, 0, 0.1], 38, 252, 270, 1);
+    BFO.forEach(function (t, i) {
+      var b = BF[t], y = top + i * step, sel = t === k;
+      var g = el("g", { "data-k": t, opacity: sel ? 1 : 0.45 });
+      var num = function (z) { return parseFloat(z.replace(/\u2212/g, "-")); };
+      var dv = num(b.d), ci = b.ci.replace(/[\[\]]/g, "").split(",").map(num), col = t === "c" ? RED : LIGHT;
+      asButton(g, BFH[t] + ": applicant minus employee difference " + b.d + ", 95% CI " + b.ci + ". Select this trait.");
+      g.appendChild(el("rect", { x: 0, y: y - 21, width: 440, height: 42, fill: "transparent" }));
+      g.appendChild(el("text", { x: 0, y: y + 5, "class": "ink" + (sel ? " b" : "") }, BFH[t]));
+      g.appendChild(el("line", { x1: x(ci[0]), x2: x(ci[1]), y1: y, y2: y, stroke: col, "stroke-width": 2 }));
+      g.appendChild(el("circle", { cx: x(dv), cy: y, r: 4.5, fill: b.sig ? col : "#fff", stroke: col, "stroke-width": 2 }));
+      g.appendChild(el("text", { x: Math.max(x(ci[1]) + 8, x(0) + 6), y: y + 4.5, "class": "t13", fill: t === "c" ? RED : MUTE }, b.d));
+      press(g, function () { syncSeg("bf-seg", t); drawBf(t, true); });
+      bfSvg.appendChild(g);
+    });
+    var an = el("text", { x: 146, y: top - 26, "class": "t13 ink" }, "the one significant contrast");
+    bfSvg.appendChild(an);
+    bfSvg.appendChild(el("text", { x: (L + Rt) / 2, y: 292, "text-anchor": "middle" }, "Applicant minus employee correlation with ability"));
+    document.getElementById("bf-k").textContent = "Applicants: " + d.app[3] + " samples. Employees: " + d.inc[3] + " samples.";
+    fill("bf", { value: d.d, label: "Applicant minus employee correlation, " + BFN[k],
+      sub: "95% CI " + d.ci + "; " + d.p + "; " + d.app[4] + " applicants and " + d.inc[4] + " employees (Table 1)",
+      reading: d.reading, main: d.main, barsub: d.barsub, muted: !d.sig });
+    if (focus) addRef(bfSvg, "bf", k);
+  }
+  seg("bf-seg", drawBf);
+  drawBf("c");
+
+  /* 2 . Table 3, Panel A: conscientiousness and GMA by region. */
+  var RG = {
+    non: { app: -0.27, inc: 0.05, ka: "10; 6,050", ki: "20; 8,577", value: "\u2212.33", label: "Applicant minus employee correlation, studies outside the U.S.",
+      sub: "95% CI [\u2212.42, \u2212.24]; <em>z</em> = \u22127.08, <em>p</em> &lt; .001 (Table 3)",
+      reading: "Outside the U.S., the applicant correlation was \u2212.27 in 10 samples (6,050 people), against .05 in 20 employee samples (8,577 people). Applicants were compared with employees from their own region, so the contrast does not come from comparing regions with each other.",
+      main: "Concentrated here.", barsub: "One UK-developed inventory family supplied 78% of these applicants, so region and instrument cannot be separated.", muted: false },
+    us: { app: 0.01, inc: 0.01, ka: "10; 14,707", ki: "51; 9,664", value: "\u2212.01", label: "Applicant minus employee correlation, U.S. studies",
+      sub: "95% CI [\u2212.07, .06]; <em>p</em> = .851 (Table 3)",
+      reading: "In U.S. studies, the applicant correlation was .01 in 10 samples (14,707 people), against .01 in 51 employee samples (9,664 people). Single U.S. applicant samples ranged from \u2212.15 to +.14, so the regional result concerns the averages.",
+      main: "No significant contrast in U.S. studies.", barsub: "With six large operational applicant datasets added, the U.S. applicant estimate moved to +.07 (page 36).", muted: true }
+  };
+  var rgSvg = document.getElementById("rg-chart");
+  var RGN = { non: "Outside the U.S.", us: "U.S. studies" };
+  function drawRg(k, focus) {
+    var d = RG[k]; clear(rgSvg);
+    var xL = 100, xR = 258, lo = -0.35, hi = 0.15, yT = 64, yB = 224;
+    var y = function (v) { return yT + (hi - v) * (yB - yT) / (hi - lo); };
+    var h1 = el("text", { x: xL, y: 16, "text-anchor": "middle", "class": "ink b" });
+    h1.appendChild(el("tspan", { x: xL, dy: 0 }, "Employees tested "));
+    h1.appendChild(el("tspan", { x: xL, dy: 17 }, "for research"));
+    rgSvg.appendChild(h1);
+    rgSvg.appendChild(el("text", { x: xR, y: 16, "text-anchor": "middle", "class": "ink b" }, "Job applicants"));
+    rgSvg.appendChild(el("line", { x1: 16, x2: xR, y1: y(0), y2: y(0), stroke: LIGHT, "stroke-width": 1, "stroke-dasharray": "4 4" }));
+    rgSvg.appendChild(el("text", { x: 0, y: y(0) + 5, "class": "t13" }, "0"));
+    var order = ["non", "us"].filter(function (t) { return t !== k; }).concat([k]);
+    order.forEach(function (t) {
+      var r = RG[t], sel = t === k, c = sel ? RED : MUTE;
+      var g = el("g", { "data-k": t });
+      asButton(g, RGN[t] + ": employees " + r2(r.inc) + ", applicants " + r2(r.app) + ". Select this region.");
+      g.appendChild(el("line", { x1: xL, x2: xR, y1: y(r.inc), y2: y(r.app), stroke: "transparent", "stroke-width": 18 }));
+      g.appendChild(el("line", { x1: xL, x2: xR, y1: y(r.inc), y2: y(r.app), stroke: sel ? RED : LIGHT, "stroke-width": sel ? 3 : 1.5, "stroke-linecap": "round" }));
+      g.appendChild(el("circle", { cx: xL, cy: y(r.inc), r: sel ? 4.5 : 3.5, fill: sel ? RED : LIGHT }));
+      g.appendChild(el("circle", { cx: xR, cy: y(r.app), r: sel ? 4.5 : 3.5, fill: sel ? RED : LIGHT }));
+      var ly = t === "non" ? y(r.inc) + 2 : y(r.inc) + 19;
+      g.appendChild(el("text", { x: xL - 10, y: ly, "text-anchor": "end", fill: c, "class": sel ? "b" : "" }, r2(r.inc)));
+      g.appendChild(el("text", { x: xR + 10, y: y(r.app) + 5, fill: c, "class": sel ? "b" : "" }, r2(r.app)));
+      g.appendChild(el("text", { x: xR + 46, y: y(r.app) + 5, fill: c, "class": sel ? "b" : "" }, RGN[t]));
+      press(g, function () { syncSeg("rg-seg", t); drawRg(t, true); });
+      rgSvg.appendChild(g);
+    });
+    var ka = d.ka.split("; "), ki = d.ki.split("; ");
+    document.getElementById("rg-k").textContent = "Applicants: " + ka[0] + " samples, " + ka[1] + " people. Employees: " + ki[0] + " samples, " + ki[1] + " people.";
+    fill("rg", d);
+    if (focus) addRef(rgSvg, "rg", k);
+  }
+  seg("rg-seg", drawRg);
+  drawRg("non");
+
+  /* 3 . Table 4: Study 1 simulation. */
+  var SM = {
+    us: { v: [35.8, 22.5, 10.3, 8.4], air: "0.40 to 0.39 at a .10 selection ratio and 0.53 to 0.52 at .30",
+      reading: "In the U.S. condition, the fitted compensatory slope was 0.01, and faking still changed 35.8% of hires at a .10 selection ratio and 22.5% at .30. Mean performance of those hired fell 10.3% and 8.4%. Faking that varies from person to person reorders applicants near the cutoff.", main: "Many decisions changed with a fitted slope of 0.01." },
+    pooled: { v: [32.3, 22.5, 8.9, 10.8], air: "0.39 to 0.44 at a .10 selection ratio and 0.53 to 0.56 at .30",
+      reading: "With the pooled applicant correlation (\u2212.07) as the target, faking changed 32.3% of hires at a .10 selection ratio and 22.5% at .30. Mean performance of those hired fell 8.9% and 10.8%.", main: "Hire performance fell in every condition." },
+    non: { v: [30.8, 26.0, 15.0, 18.7], air: "0.37 to 0.52 at a .10 selection ratio and 0.54 to 0.66 at .30",
+      reading: "With the non-U.S. applicant correlation (\u2212.27) as the target, faking changed 30.8% of hires at a .10 selection ratio and 26.0% at .30. Mean performance of those hired fell 15.0% and 18.7%, the largest losses in Table 4.", main: "Largest performance loss in Table 4." }
+  };
+  var SMN = ["Hires changed, SR .10", "Hires changed, SR .30", "Performance lost, SR .10", "Performance lost, SR .30"];
+  var PANELS = [["us", "U.S.", "US"], ["pooled", "All applicant samples", "Pooled"], ["non", "Outside the U.S.", "Non-US"]];
+  var GRIDV = null, smSel = "us", igSel = "us";
+  function panelHead(svg, text, sel) { svg.appendChild(el("text", { x: 2, y: 16, "class": "ink" + (sel ? " b" : "") }, text)); }
+  function wirePanels(wrapId, onPick) {
+    Array.prototype.forEach.call(document.querySelectorAll("#" + wrapId + " .mp"), function (m) {
+      press(m, function () { onPick(m.getAttribute("data-k")); });
+    });
+  }
+  function markPanels(wrapId, k) {
+    Array.prototype.forEach.call(document.querySelectorAll("#" + wrapId + " .mp"), function (m) { m.setAttribute("aria-pressed", m.getAttribute("data-k") === k ? "true" : "false"); });
+  }
+  function paintSm() {
+    PANELS.forEach(function (P) {
+      var svg = document.getElementById("sm-" + P[0]), sel = P[0] === smSel;
+      clear(svg); panelHead(svg, P[1], sel);
+      if (!GRIDV || !GRIDV[P[2]]) return;
+      var g = GRIDV[P[2]], L = 70, Rr = 192, yT = 28, yB = 160;
+      var xs = function (s) { return L + (Rr - L) * (s - 5) / 45; };
+      var ys = function (v) { return yB - (yB - yT) * v / 60; };
+      var G = el("g", { opacity: sel ? 1 : 0.5 });
+      [0, 20, 40, 60].forEach(function (t) {
+        G.appendChild(el("line", { x1: L, x2: Rr, y1: ys(t), y2: ys(t), "class": t === 0 ? "zero" : "grid" }));
+        G.appendChild(el("text", { x: Rr + 5, y: ys(t) + 4.5, "class": "t13" }, t === 60 ? "60%" : String(t)));
+      });
+      [10, 30, 50].forEach(function (t) {
+        G.appendChild(el("line", { x1: xs(t), x2: xs(t), y1: yB, y2: yB + 4, stroke: MUTE, "stroke-width": 1 }));
+        G.appendChild(el("text", { x: xs(t), y: yB + 19, "text-anchor": "middle", "class": "t13" }, t + "%"));
+      });
+      var PV = ["0.30", "0.35", "0.40", "0.45", "0.50"], first = {};
+      PV.filter(function (p) { return p !== "0.40"; }).concat(["0.40"]).forEach(function (p) {
+        var cells = g[p]; if (!cells) return;
+        var heavy = p === "0.40", d = "";
+        Object.keys(cells).forEach(function (sr, i) { d += (i ? "L" : "M") + xs(parseFloat(sr) * 100).toFixed(1) + " " + ys(cells[sr].hires_changed).toFixed(1); });
+        G.appendChild(el("path", { d: d, fill: "none", stroke: heavy ? RED : LIGHT, "stroke-width": heavy ? 2.5 : 1, "stroke-linejoin": "round" }));
+        first[p] = ys(cells[Object.keys(cells)[0]].hires_changed);
+      });
+      var lab = [["0.30", "30% fake", false], ["0.40", "40% fake", true], ["0.50", "50%", false]];
+      var prevY = -99;
+      lab.forEach(function (l) {
+        if (first[l[0]] == null) return;
+        var ly = Math.max(first[l[0]], prevY + 14); prevY = ly;
+        G.appendChild(el("text", { x: L - 6, y: ly + 4.5, "text-anchor": "end", fill: l[2] ? RED : MUTE, "class": "t13" }, l[1]));
+      });
+      var heavyCells = g["0.40"];
+      if (heavyCells) {
+        ["0.10", "0.30"].forEach(function (sr) { if (heavyCells[sr]) G.appendChild(el("circle", { cx: xs(parseFloat(sr) * 100), cy: ys(heavyCells[sr].hires_changed), r: 3.5, fill: RED })); });
+        if (sel && heavyCells["0.10"] && heavyCells["0.30"]) {
+          ["0.10", "0.30"].forEach(function (sr) {
+            G.appendChild(el("line", { x1: xs(parseFloat(sr) * 100), x2: xs(parseFloat(sr) * 100), y1: ys(heavyCells[sr].hires_changed) + 6, y2: 138, stroke: LIGHT, "stroke-width": 1 }));
+          });
+          G.appendChild(el("text", { x: (xs(10) + xs(30)) / 2, y: 152, "text-anchor": "middle", "class": "t13 ink" }, "Table 4 settings"));
+        }
+      }
+      svg.appendChild(G);
+    });
+    markPanels("sm-multiples", smSel);
+  }
+  function drawSm(k) {
+    var d = SM[k]; smSel = k; paintSm();
+    fill("sm", { value: d.v[0].toFixed(1) + "% and " + d.v[1].toFixed(1) + "%", label: "Simulated top-down hires changed by faking, selection ratios .10 and .30",
+      sub: "40% of applicants faking; 200,000 simulated applicants per condition (Table 4)", reading: d.reading, main: d.main,
+      barsub: "Adverse-impact ratio, honest to faked: " + d.air + ". The ratio uses U.S.-derived subgroup values in every condition.", muted: false });
+  }
+  seg("sm-seg", drawSm);
+  wirePanels("sm-multiples", function (k) { syncSeg("sm-seg", k); drawSm(k); });
+  drawSm("us");
+  gridP.then(function (j) { GRIDV = j.grid; paintSm(); }).catch(function () { /* headings only */ });
+
+  /* 4 . Table 6: Study 2 honesty-humility gaps. */
+  var IG = {
+    us: { v: [-0.19, -0.19, -0.32, -0.29], fi: "+0.08 and \u22120.06", dp: "+0.27 and +0.14", air: "0.40 to 0.38 and 0.54 to 0.53", hc: "34.9% and 21.1%" },
+    pooled: { v: [-0.22, -0.16, -0.33, -0.30], fi: "+0.04 and \u22120.04", dp: "+0.26 and +0.12", air: "0.37 to 0.35 and 0.52 to 0.52", hc: "28.8% and 21.5%" },
+    non: { v: [-0.45, -0.32, -0.70, -0.48], fi: "\u22120.08 and \u22120.13", dp: "+0.36 and +0.19", air: "0.40 to 0.37 and 0.52 to 0.52", hc: "20.0% and 25.4%" }
+  };
+  var IGN = ["HEXACO, SR .10", "HEXACO, SR .30", "Overt tests, SR .10", "Overt tests, SR .30"];
+  function paintIg() {
+    PANELS.forEach(function (P) {
+      var svg = document.getElementById("ig-" + P[0]), sel = P[0] === igSel, d = IG[P[0]];
+      clear(svg); panelHead(svg, P[1], sel);
+      var L = 46, Rr = 222, y0 = 40, sc = 110 / 0.8;
+      var G = el("g", { opacity: sel ? 1 : 0.5 });
+      [0, -0.4, -0.8].forEach(function (t) {
+        G.appendChild(el("line", { x1: L - 4, x2: L, y1: y0 - t * sc, y2: y0 - t * sc, stroke: MUTE, "stroke-width": 1 }));
+        G.appendChild(el("text", { x: L - 7, y: y0 - t * sc + 4.5, "text-anchor": "end", "class": "t13" }, t === 0 ? "0" : r1(t)));
+      });
+      G.appendChild(el("line", { x1: L, x2: Rr, y1: y0, y2: y0, "class": "zero" }));
+      var cx = [66, 100, 154, 188];
+      d.v.forEach(function (v, i) {
+        var h = -v * sc, c = i < 2 ? RED : BLUE;
+        G.appendChild(el("rect", { x: cx[i] - 13, y: y0, width: 26, height: h, fill: c }));
+        G.appendChild(el("text", { x: cx[i], y: y0 + h + 15, "text-anchor": "middle", "class": "t13", fill: c }, r2(v)));
+        G.appendChild(el("text", { x: cx[i], y: 178, "text-anchor": "middle", "class": "t13" }, i % 2 ? ".30" : ".10"));
+      });
+      G.appendChild(el("text", { x: (cx[0] + cx[1]) / 2, y: 198, "text-anchor": "middle", "class": "t13 ink" }, "HEXACO"));
+      G.appendChild(el("text", { x: (cx[2] + cx[3]) / 2, y: 198, "text-anchor": "middle", "class": "t13 ink" }, "Overt tests"));
+      if (P[0] === "non") G.appendChild(el("text", { x: Rr, y: 16, "text-anchor": "end", "class": "t13 ink" }, "largest gaps"));
+      svg.appendChild(G);
+    });
+    markPanels("ig-multiples", igSel);
+  }
+  function r1(v) { return "−" + Math.abs(v).toFixed(1); }
+  function drawIg(k) {
+    var d = IG[k]; igSel = k; paintIg();
+    fill("ig", { value: "−" + Math.abs(d.v[0]).toFixed(2) + " and −" + Math.abs(d.v[1]).toFixed(2) + " SD",
+      label: "Honesty-humility of faked-in hires minus displaced applicants, HEXACO correlations, selection ratios .10 and .30",
+      sub: "Primary specification, linear inflation form; 200,000 simulated applicants per condition (Table 6)",
+      reading: "Simulated applicants hired only because of faking averaged " + d.fi + " SD in honesty-humility at the two selection ratios, against " + d.dp + " SD for the applicants they displaced. Faking changed " + d.hc + " of hires in this condition.",
+      main: "Lower-integrity hires; the adverse-impact ratio moved by 0.03 or less.", barsub: "Adverse-impact ratio, honest to faked: " + d.air + ".", muted: false });
+  }
+  seg("ig-seg", drawIg);
+  wirePanels("ig-multiples", function (k) { syncSeg("ig-seg", k); drawIg(k); });
+  drawIg("us");
+
+  /* Guess first, then the Study 1 hires-changed counts (Table 4, selection ratio .10). */
+  Companion.guess(document.getElementById("guess-hires"), {
+    question: "Before you look: with 40 of every 100 applicants faking and 1 in 10 hired, how many of every 100 hires would be different people than under honest answers?",
+    min: 0, max: 100, step: 1, start: 50,
+    format: function (v) { return v + " of 100"; },
+    reveal: document.getElementById("hires-wrap"),
+    feedback: function (v) {
+      var d = v - 36;
+      if (Math.abs(d) <= 5) return "You guessed <strong>" + v + "</strong>. In the simulation it was about <strong>36</strong> of 100 in the U.S. condition, so you were close.";
+      if (d < 0) return "You guessed <strong>" + v + "</strong>. In the simulation it was about <strong>36</strong> of 100 in the U.S. condition: more than you expected.";
+      return "You guessed <strong>" + v + "</strong>. In the simulation it was about <strong>36</strong> of 100 in the U.S. condition: fewer than you expected, and still more than one hire in three.";
+    }
+  });
+  /* Hiring calculator: reads precomputed runs from grid.json (400,000 simulated applicants per setting). */
+  (function () {
+    var GRID = null, SDY = 0.4;
+    function $(id) { return document.getElementById(id); }
+    var prev = $("hc-prev"), sr = $("hc-sr"), hiresEl = $("hc-hires"), salEl = $("hc-salary");
+    var msg = $("hc-msg"), out = $("hc-out");
+    function ctx() { return document.querySelector('input[name="ctx"]:checked').value; }
+    function dollars(x) {
+      if (x >= 1e6) return "$" + (x / 1e6).toFixed(1) + "M";
+      var mag = Math.pow(10, Math.max(0, Math.floor(Math.log10(Math.max(1, x))) - 2));
+      return "$" + (Math.round(x / mag) * mag).toLocaleString("en-US");
+    }
+    function showError() {
+      out.hidden = true;
+      msg.innerHTML = "The calculator could not load its data. The paper&rsquo;s Table 4 values are in section 3 of the evidence.";
+      msg.hidden = false;
+    }
+    function update() {
+      $("hc-prev-out").textContent = prev.value + "%";
+      $("hc-sr-out").textContent = sr.value + "%";
+      if (!GRID) return;
+      var pf = (parseInt(prev.value, 10) / 100).toFixed(2);
+      var sf = (parseInt(sr.value, 10) / 100).toFixed(2);
+      var hires = Math.max(1, parseInt(hiresEl.value, 10) || 1);
+      var salary = Math.max(0, parseInt(salEl.value, 10) || 0);
+      var cell = GRID[ctx()] && GRID[ctx()][pf] && GRID[ctx()][pf][sf];
+      if (!cell) { showError(); return; }
+      msg.hidden = true; out.hidden = false;
+      var H = hires.toLocaleString("en-US");
+      $("hc-changed").textContent = cell.hires_changed.toFixed(0) + "%";
+      $("hc-changed-n").textContent = "about " + Math.round(cell.hires_changed / 100 * hires).toLocaleString("en-US") + " of your " + H + " hires each year";
+      $("hc-perf").textContent = cell.perf_loss.toFixed(0) + "%";
+      $("hc-perf-d").textContent = "about " + dollars(cell.perf_gap_sd * SDY * salary * hires) + " a year in illustrative performance value across all " + H + " hires";
+      $("hc-swap").textContent = cell.swap_gap_sd.toFixed(2) + " SD";
+      $("hc-swap-d").textContent = "about " + dollars(cell.swap_gap_sd * SDY * salary) + " per swapped hire per year";
+      $("hc-ai").textContent = "Adverse-impact ratio: " + cell.ai_honest.toFixed(2) + " with honest answers, " + cell.ai_faked.toFixed(2) + " with faking.";
+      $("hc-ai-note").textContent = Math.abs(cell.ai_faked - cell.ai_honest) <= 0.03 + 1e-9
+        ? "A bias audit built on this ratio would look about the same either way."
+        : "The ratio rises in this setting because the modeled inflation is larger among lower-ability applicants. The paper calls this an offsetting property that organizations should weigh.";
+    }
+    ["input", "change"].forEach(function (evt) {
+      Array.prototype.forEach.call(document.querySelectorAll("#calculator input"), function (e) { e.addEventListener(evt, update); });
+    });
+    update();
+    gridP
+      .then(function (j) { GRID = j.grid; update(); })
+      .catch(showError);
+  })();
+
+  /* Writers' block: copy buttons. */
+  Companion.copy(document.getElementById("copy-oneline"), function () { return document.getElementById("oneline").textContent; });
+  Companion.copy(document.getElementById("copy-cite"), function () { return document.getElementById("cite-text").textContent; });
+})();
+</script>
 </body>
 </html>
