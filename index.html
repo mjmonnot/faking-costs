@@ -41,6 +41,18 @@
     .multiples .mp svg { display: block; width: 100%; height: auto; }
     .calc-wide { grid-template-columns: 1fr; gap: 24px; }
     .calc-wide .results { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 24px; }
+    .paper-figure a.zoom { display: block; cursor: zoom-in; }
+    .paper-figure a.zoom:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .zoom-hint { font-size: 14px; color: var(--gray); margin: 6px 0 0; }
+    .lightbox { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1000; background: rgba(20, 26, 33, 0.94); display: flex; flex-direction: column; }
+    .lightbox[hidden] { display: none; }
+    .lightbox-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; color: #fff; font-size: 15px; }
+    .lightbox-bar button { font: inherit; color: #fff; background: none; border: 1px solid #fff; border-radius: 4px; padding: 6px 14px; cursor: pointer; }
+    .lightbox-bar button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .lightbox-scroll { flex: 1; overflow: auto; padding: 0 16px 16px; }
+    .lightbox-buttons { white-space: nowrap; }
+    .lightbox-scroll img { display: block; margin: 0 auto; max-width: none; height: auto; background: #fff; cursor: zoom-in; }
+    .lightbox-scroll img.large { cursor: zoom-out; }
   </style>
 </head>
 <body>
@@ -252,11 +264,13 @@
   </div>
   <p>The robustness checks reported here kept the applicant conscientiousness result negative, though not each one was significant. A random-effects model gave &minus;.10 (95% CI [&minus;.19, &minus;.02]) for applicants and +.03 ([&minus;.01, .06]) for employees. Dropping any one applicant sample left the applicant mean between &minus;.14 and &minus;.04. A test for small-study bias was not significant (<em>p</em> = .41). A meta-regression adjusting for three study-level covariates in 59 samples gave a negative coefficient that was not significant (&minus;.16, <em>p</em> = .07). Compared with all research samples pooled, including students and community samples, the conscientiousness difference was &minus;.07 and not significant (<em>p</em> = .063). Applicant settings varied widely: the 80% credibility interval for conscientiousness ran from &minus;.28 to +.13.</p>
   <figure class="paper-figure">
-    <img src="assets/figure1-big-five-by-context.png" alt="Figure 1 of the preprint: dot-and-interval plot of mean correlations with g for the five broad traits, each shown for five kinds of sample, with applicants highlighted in red." width="1239" height="917" loading="lazy">
+    <a class="zoom" href="assets/figure1-big-five-by-context.png" target="_blank" rel="noopener" data-title="Figure 1 of the preprint"><img src="assets/figure1-big-five-by-context.png" alt="Figure 1 of the preprint: dot-and-interval plot of mean correlations with g for the five broad traits, each shown for five kinds of sample, with applicants highlighted in red." width="1239" height="917" loading="lazy"></a>
+    <p class="zoom-hint">Select the figure to enlarge it.</p>
     <figcaption><strong>Figure 1. How to read it.</strong> Each group of five rows is one trait, and each row is one kind of sample. The red dot is the applicant estimate; the dark blue dot below it is the employee estimate. Lines are 95% confidence intervals, and the dashed vertical line is zero. For conscientiousness, the red applicant dot sits left of zero while the employee dot sits right of it. For the other four traits, the applicant interval overlaps the employee interval.</figcaption>
   </figure>
   <figure class="paper-figure">
-    <img src="assets/figure2-conscientiousness-forest.png" alt="Figure 2 of the preprint: forest plot listing each of the 20 applicant samples and 71 incumbent samples each with its observed correlation between conscientiousness and ability plus a 95% confidence interval, with a diamond for each weighted mean." width="917" height="1479" loading="lazy">
+    <a class="zoom" href="assets/figure2-conscientiousness-forest.png" target="_blank" rel="noopener" data-title="Figure 2 of the preprint"><img src="assets/figure2-conscientiousness-forest.png" alt="Figure 2 of the preprint: forest plot listing each of the 20 applicant samples and 71 incumbent samples each with its observed correlation between conscientiousness and ability plus a 95% confidence interval, with a diamond for each weighted mean." width="917" height="1479" loading="lazy"></a>
+    <p class="zoom-hint">Select the figure to enlarge it.</p>
     <figcaption><strong>Figure 2. How to read it.</strong> Each row is one sample, labeled with its first author and sample size, plotted at its correlation. Larger squares are larger samples, and lines are 95% confidence intervals. Rows run from most negative to most positive within each group. The red diamond at the end of the applicant block is the weighted mean (&minus;.07); the blue diamond at the end of the employee block is +.03.</figcaption>
   </figure>
 </section>
@@ -347,11 +361,13 @@
   </div>
   </div>
   <figure class="paper-figure">
-    <img src="assets/figure3-selection-outcomes.png" alt="Figure 3 of the preprint: left, expected performance of hires by selection ratio for four correlation inputs; center, adverse-impact ratio by selection ratio with the four-fifths line; right, bars for percentage of hires changed and performance loss in six simulated conditions." width="1239" height="394" loading="lazy">
+    <a class="zoom" href="assets/figure3-selection-outcomes.png" target="_blank" rel="noopener" data-title="Figure 3 of the preprint"><img src="assets/figure3-selection-outcomes.png" alt="Figure 3 of the preprint: left, expected performance of hires by selection ratio for four correlation inputs; center, adverse-impact ratio by selection ratio with the four-fifths line; right, bars for percentage of hires changed and performance loss in six simulated conditions." width="1239" height="394" loading="lazy"></a>
+    <p class="zoom-hint">Select the figure to enlarge it.</p>
     <figcaption><strong>Figure 3. How to read it.</strong> The left and center panels come from the closed-form model, which holds validities fixed: each line is one correlation input, and the horizontal axis is the share of applicants hired. Left, expected performance of hires in SD units; center, the adverse-impact ratio, with the four-fifths line at .80. The right panel comes from the simulation: dark bars are the percentage of hires changed by faking, light bars the percentage of hire performance lost.</figcaption>
   </figure>
   <figure class="paper-figure">
-    <img src="assets/figure4-mechanism.png" alt="Figure 4 of the preprint: three panels for the non-US condition at a .10 selection ratio. A, conscientiousness inflation of fakers falling as ability rises; B, honest against as-scored composites with hiring cutoffs; C, bars for mean true performance of hired and displaced groups." width="1239" height="413" loading="lazy">
+    <a class="zoom" href="assets/figure4-mechanism.png" target="_blank" rel="noopener" data-title="Figure 4 of the preprint"><img src="assets/figure4-mechanism.png" alt="Figure 4 of the preprint: three panels for the non-US condition at a .10 selection ratio. A, conscientiousness inflation of fakers falling as ability rises; B, honest against as-scored composites with hiring cutoffs; C, bars for mean true performance of hired and displaced groups." width="1239" height="413" loading="lazy"></a>
+    <p class="zoom-hint">Select the figure to enlarge it.</p>
     <figcaption><strong>Figure 4. How to read it.</strong> This shows one simulated condition, outside the U.S. at a .10 selection ratio. Panel A: each red dot is a faker, and the line shows inflation falling as ability rises. Panel B: dots above the horizontal cutoff and left of the vertical one were hired only because of faking; 31% of hires changed. Panel C: bar heights are mean true performance; the faked-in group (0.19 SD) sits below the displaced group (0.51 SD). The dollar axis is illustrative, at 40% of a $70,000 salary.</figcaption>
   </figure>
 </section>
@@ -469,6 +485,10 @@
 </footer>
 
 </main>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
+  <div class="lightbox-bar"><span id="lightbox-title"></span><span class="lightbox-buttons"><button type="button" id="lightbox-size">Larger</button> <button type="button" id="lightbox-close">Close</button></span></div>
+  <div class="lightbox-scroll" id="lightbox-scroll"></div>
+</div>
 <script src="assets/companion.js"></script>
 <script>
 (function () {
@@ -824,6 +844,71 @@
   /* Writers' block: copy buttons. */
   Companion.copy(document.getElementById("copy-oneline"), function () { return document.getElementById("oneline").textContent; });
   Companion.copy(document.getElementById("copy-cite"), function () { return document.getElementById("cite-text").textContent; });
+})();
+
+/* Paper figures: enlarge on click. Without script the link opens the image file. */
+(function () {
+  "use strict";
+  var links = document.querySelectorAll(".paper-figure a.zoom");
+  var box = document.getElementById("lightbox");
+  if (!links.length || !box) return;
+  var scroller = document.getElementById("lightbox-scroll");
+  var img = document.createElement("img");
+  img.id = "lightbox-img"; img.alt = "";
+  var title = document.getElementById("lightbox-title");
+  var closeBtn = document.getElementById("lightbox-close");
+  var sizeBtn = document.getElementById("lightbox-size");
+  var last = null, large = false;
+  /* Two sizes. Fitted: the whole figure inside the window. Larger: up to twice the file's own size, and the reader scrolls. */
+  function fit() {
+    var nat = img.naturalWidth || 0;
+    if (!nat) return;
+    var avail = scroller.clientWidth - 32;
+    var w = large ? Math.max(nat, Math.min(nat * 2, Math.round(avail * 1.8))) : Math.min(avail, nat * 2);
+    img.style.width = w + "px";
+    img.className = large ? "large" : "";
+    sizeBtn.textContent = large ? "Fit to window" : "Larger";
+  }
+  function toggle() { large = !large; fit(); scroller.scrollTop = 0; scroller.scrollLeft = 0; }
+  function open(a) {
+    var small = a.querySelector("img");
+    last = a;
+    /* Start fitted on a roomy screen and at the larger size on a narrow one. */
+    img.onload = function () { large = (scroller.clientWidth - 32) < img.naturalWidth * 0.9; fit(); };
+    img.alt = small ? (small.getAttribute("alt") || "") : "";
+    img.src = a.getAttribute("href");
+    scroller.appendChild(img);
+    title.textContent = a.getAttribute("data-title") || "";
+    box.hidden = false;
+    document.documentElement.style.overflow = "hidden";
+    scroller.scrollTop = 0; scroller.scrollLeft = 0;
+    if (img.complete && img.naturalWidth) img.onload();
+    closeBtn.focus();
+  }
+  function close() {
+    box.hidden = true;
+    document.documentElement.style.overflow = "";
+    if (img.parentNode) img.parentNode.removeChild(img);
+    img.removeAttribute("src");
+    if (last) last.focus();
+  }
+  Array.prototype.forEach.call(links, function (a) {
+    a.addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+      e.preventDefault();
+      open(a);
+    });
+  });
+  closeBtn.addEventListener("click", close);
+  sizeBtn.addEventListener("click", toggle);
+  img.addEventListener("click", toggle);
+  box.addEventListener("click", function (e) { if (e.target === box || e.target === scroller) close(); });
+  document.addEventListener("keydown", function (e) {
+    if (box.hidden) return;
+    if (e.key === "Escape" || e.key === "Esc") { close(); }
+    else if (e.key === "Tab") { e.preventDefault(); (document.activeElement === closeBtn ? sizeBtn : closeBtn).focus(); }
+  });
+  window.addEventListener("resize", function () { if (!box.hidden) fit(); });
 })();
 </script>
 </body>
