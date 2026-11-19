@@ -323,6 +323,11 @@ section[id], div[id].anchor { scroll-margin-top: 16px; }
 .guess button.skip { background: #fff; color: var(--ink); }
 .guess .feedback { font-size: 17px; margin: 12px 0 0; }
 .guess .feedback strong { color: var(--red); }
+.guess .guess-actions[hidden] { display: none; }
+.guess .explain { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); }
+.guess .explain p { font-size: 16px; line-height: 1.5; margin: 0 0 8px; }
+.guess .explain p:last-child { margin-bottom: 0; }
+.guess .explain .lead { font-weight: 700; }
 
 .veiled { filter: blur(8px); opacity: 0.3; pointer-events: none; user-select: none; }
 .guess-target { transition: filter 0.35s ease, opacity 0.35s ease; }

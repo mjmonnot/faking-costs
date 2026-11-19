@@ -289,15 +289,18 @@
     render();
   }
 
-  /* Guess first, then see the published number (Kim et al., 2017).
+  /* Guess first, then see the published number and the reason for it (Kim et al., 2017).
      cfg = { question, min, max, step, start, format(v), feedback(v) -> html,
+             answer: html shown in place of the feedback when the reader skips the guess,
+             explain: [{ label, html }], shown under the answer whenever the answer is given,
              reveal: element shown veiled until the reader guesses, skips, or scrolls to it,
-             goLabel, skipLabel, sliderLabel }
+             goLabel, skipLabel, whyLabel, sliderLabel }
      The veiled element keeps its place in the layout, and it clears on its own
-     once the reader scrolls to it, so no result depends on a click. */
+     once the reader scrolls to it, so no result depends on a click. Scrolling past
+     leaves one button that opens the answer and its explanation. */
   function guess(root, cfg) {
     var target = cfg.reveal || null;
-    var done = false;
+    var unveiled = false, answered = false;
     var id = "guess-" + Math.random().toString(36).slice(2, 8);
     root.classList.add("guess");
     root.appendChild(h("p", { "class": "gq" }, cfg.question));
@@ -313,29 +316,56 @@
     actions.appendChild(go);
     actions.appendChild(skip);
     root.appendChild(actions);
-    var fb = h("p", { "class": "feedback", "aria-live": "polite" });
+    var result = h("div", { "class": "guess-result", "aria-live": "polite" });
+    var fb = h("p", { "class": "feedback" });
     fb.hidden = true;
-    root.appendChild(fb);
+    result.appendChild(fb);
+    var ex = null;
+    if (cfg.explain && cfg.explain.length) {
+      ex = h("div", { "class": "explain" });
+      cfg.explain.forEach(function (part) {
+        ex.appendChild(h("p", null, "<strong class=\"lead\">" + part.label + ".</strong> " + part.html));
+      });
+      ex.hidden = true;
+      result.appendChild(ex);
+    }
+    root.appendChild(result);
 
     function show() { out.textContent = cfg.format ? cfg.format(+input.value) : String(input.value); }
-    function onScroll() {
-      if (target && target.getBoundingClientRect().top < window.innerHeight * 0.25) reveal(false);
-    }
-    function reveal(withGuess) {
-      if (done) return;
-      done = true;
+    function unveil() {
+      if (unveiled) return;
+      unveiled = true;
       if (target) target.classList.remove("veiled");
       window.removeEventListener("scroll", onScroll);
+    }
+    function onScroll() {
+      if (!target || target.getBoundingClientRect().top >= window.innerHeight * 0.25) return;
+      unveil();
+      if (answered) return;
+      /* The chart is in view, so a guess no longer makes sense. Keep the row the same
+         height: with an answer or an explanation to give, one button offers it. */
+      go.hidden = true;
+      if (cfg.answer || ex) skip.textContent = cfg.whyLabel || "Explain this number";
+      else actions.hidden = true;
+    }
+    function answer(withGuess) {
+      if (answered) return;
+      answered = true;
+      unveil();
       actions.hidden = true;
+      var html = "";
       if (withGuess) {
         input.disabled = true;
-        fb.innerHTML = cfg.feedback(+input.value);
-        fb.hidden = false;
+        html = cfg.feedback(+input.value);
+      } else if (cfg.answer) {
+        html = cfg.answer;
       }
+      if (html) { fb.innerHTML = html; fb.hidden = false; }
+      if (ex) ex.hidden = false;
     }
     input.addEventListener("input", show);
-    go.addEventListener("click", function () { reveal(true); });
-    skip.addEventListener("click", function () { reveal(false); });
+    go.addEventListener("click", function () { answer(true); });
+    skip.addEventListener("click", function () { answer(false); });
     if (target) {
       target.classList.add("veiled");
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -343,7 +373,6 @@
     show();
   }
 
-  /* Copy-to-clipboard button. text may be a string or a function. */
   function copy(btn, text) {
     btn.addEventListener("click", function () {
       var t = typeof text === "function" ? text() : text;

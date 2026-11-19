@@ -785,6 +785,12 @@
     min: 0, max: 100, step: 1, start: 50,
     format: function (v) { return v + " of 100"; },
     reveal: document.getElementById("hires-wrap"),
+    answer: "In the simulation it was <strong>about 36 of 100</strong> in the U.S. condition.",
+    explain: [
+      { label: "What the number counts", html: "The paper simulated 200,000 applicants, 40% of whom faked, and filled the top 10% twice: once on the scores as given and once on the same applicants&rsquo; honest scores. In the U.S. condition, 35.8% of the first list were not on the second." },
+      { label: "Why it comes out this way", html: "Only some applicants faked. The paper reports that in the U.S. condition 22% to 36% of hires differed from the honest list and that the hires&rsquo; mean true performance was 8% to 10% lower, because heterogeneous faking reorders applicants near the cutoff. With 3 in 10 hired, the share was 22.5%." },
+      { label: "If your experience says otherwise", html: "This is a model, not a count of real hires. It sets faking at 40% of applicants, the midpoint of the 30% to 50% range from within-person applicant studies, and simplifies how faking raises scores. The paper notes that rank-order change among actual applicants is smaller than laboratory designs suggest." }
+    ],
     feedback: function (v) {
       var d = v - 36;
       if (Math.abs(d) <= 5) return "You guessed <strong>" + v + "</strong>. In the simulation it was about <strong>36</strong> of 100 in the U.S. condition, so you were close.";
